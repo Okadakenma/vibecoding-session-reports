@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VIBECODING LAB 第1期 — セッションレポート</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Hiragino Sans', 'Yu Gothic UI', sans-serif; background: #f4f7fb; color: #1a1a2e; }
+
+  header {
+    background: linear-gradient(135deg, #1a3a5c 0%, #2563a8 100%);
+    color: white; padding: 28px 48px;
+  }
+  header .logo { font-size: 20px; font-weight: 700; letter-spacing: 2px; }
+
+  .title-block { background: white; border-bottom: 1px solid #e0e7f0; padding: 28px 48px; }
+  .title-block .label { font-size: 12px; color: #2563a8; font-weight: 700; letter-spacing: 2px; }
+  .title-block h1 { font-size: 26px; font-weight: 700; margin: 6px 0 4px; color: #1a3a5c; }
+  .title-block .date { font-size: 13px; color: #666; }
+
+  main { max-width: 960px; margin: 0 auto; padding: 36px 24px; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+
+  .card {
+    background: white; border-radius: 10px; padding: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07); transition: all 0.2s;
+    text-decoration: none; color: inherit; display: block;
+    border-top: 3px solid #2563a8;
+  }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(37,99,168,0.15); }
+  .card .session-no { font-size: 12px; font-weight: 700; color: #2563a8; letter-spacing: 1px; }
+  .card .session-title { font-size: 16px; font-weight: 700; margin: 8px 0 6px; }
+  .card .session-date { font-size: 12px; color: #666; }
+  .card .session-summary { font-size: 12px; color: #555; margin-top: 12px; line-height: 1.6; }
+  .card .badge {
+    display: inline-block; margin-top: 14px; font-size: 11px; font-weight: 600;
+    background: #e8f0fd; color: #2563a8; padding: 3px 10px; border-radius: 20px;
+  }
+
+  footer { text-align: center; padding: 48px 24px; font-size: 12px; color: #999; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">VIBECODING LAB</div>
+</header>
+
+<div class="title-block">
+  <div class="label">COHORT 01</div>
+  <h1>第1期</h1>
+  <div class="date">2026年4月1日（水）〜 6月4日（木）</div>
+</div>
+
+<main>
+  <div class="grid">
+    <a href="2026-04-01-第1期第1回.html" class="card">
+      <div class="session-no">SESSION 01</div>
+      <div class="session-title">環境構築 & フロントエンド入門</div>
+      <div class="session-date">2026年4月1日（水）</div>
+      <div class="session-summary">Claude Code導入・ToDoアプリ作成・GitHub連携を完了。各自の開発目標を共有した。</div>
+      <div class="badge">✅ 公開済み</div>
+    </a>
+  </div>
+</main>
+
+<footer>VIBECODING LAB &copy; 2026 岡田雄太</footer>
+</body>
+</html>

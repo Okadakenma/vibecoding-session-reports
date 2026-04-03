@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VIBECODING LAB 第1期 第1回 議事録</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Hiragino Sans', 'Yu Gothic UI', sans-serif; background: #f4f7fb; color: #1a1a2e; font-size: 14px; line-height: 1.7; }
+
+  /* ── ヘッダー ── */
+  header {
+    background: linear-gradient(135deg, #1a3a5c 0%, #2563a8 100%);
+    color: white; padding: 28px 48px; display: flex; justify-content: space-between; align-items: center;
+  }
+  header .logo { font-size: 20px; font-weight: 700; letter-spacing: 2px; }
+  header .back { font-size: 12px; color: rgba(255,255,255,0.75); text-decoration: none; }
+  header .back:hover { color: white; }
+
+  /* ── タイトルブロック ── */
+  .title-block {
+    background: white; border-bottom: 1px solid #e0e7f0;
+    padding: 36px 48px 28px;
+  }
+  .title-block .label { font-size: 12px; color: #2563a8; font-weight: 700; letter-spacing: 2px; }
+  .title-block h1 { font-size: 28px; font-weight: 700; margin: 8px 0 4px; color: #1a3a5c; }
+  .title-block .date { font-size: 14px; color: #666; }
+
+  /* ── レイアウト ── */
+  .container { max-width: 900px; margin: 0 auto; padding: 32px 24px 64px; }
+
+  /* ── セクション共通 ── */
+  .section {
+    background: white; border-radius: 10px; margin-bottom: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06); overflow: hidden;
+  }
+  .section-header {
+    background: #1a3a5c; color: white;
+    padding: 12px 24px; font-size: 14px; font-weight: 700; letter-spacing: 1px;
+  }
+  .section-body { padding: 24px; }
+
+  /* ── 達成バッジ ── */
+  .achievement-list { display: flex; flex-wrap: wrap; gap: 10px; }
+  .achievement-item {
+    background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7;
+    border-radius: 20px; padding: 6px 14px; font-size: 13px; font-weight: 600;
+  }
+
+  /* ── 基本情報テーブル ── */
+  .info-table { width: 100%; border-collapse: collapse; }
+  .info-table tr { border-bottom: 1px solid #edf2f7; }
+  .info-table tr:last-child { border-bottom: none; }
+  .info-table th { width: 120px; padding: 10px 16px; text-align: left; color: #666; font-weight: 600; font-size: 13px; background: #f8faff; }
+  .info-table td { padding: 10px 16px; }
+
+  /* ── 参加者テーブル ── */
+  .member-table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+  .member-table thead tr { background: #2563a8; color: white; }
+  .member-table th { padding: 10px 16px; text-align: left; font-size: 13px; font-weight: 600; }
+  .member-table tbody tr { border-bottom: 1px solid #edf2f7; }
+  .member-table tbody tr:nth-child(even) { background: #f8faff; }
+  .member-table td { padding: 10px 16px; font-size: 13px; }
+
+  /* ── サマリー ── */
+  .summary-text { color: #333; line-height: 1.8; }
+
+  /* ── 参加者カード ── */
+  .person-section { margin-bottom: 20px; }
+  .person-section:last-child { margin-bottom: 0; }
+  .person-name {
+    font-size: 13px; font-weight: 700; color: #2563a8;
+    border-left: 3px solid #2563a8; padding-left: 10px; margin-bottom: 10px;
+  }
+  .bullet-list { list-style: none; padding: 0; }
+  .bullet-list li { padding: 4px 0 4px 20px; position: relative; color: #333; font-size: 13px; }
+  .bullet-list li::before { content: '●'; color: #2563a8; position: absolute; left: 0; font-size: 8px; top: 8px; }
+
+  /* ── 技術内容サブセクション ── */
+  .sub-section { margin-bottom: 22px; }
+  .sub-section:last-child { margin-bottom: 0; }
+  .sub-heading {
+    font-size: 13px; font-weight: 700; color: #1a3a5c;
+    border-left: 3px solid #2563a8; padding-left: 10px; margin-bottom: 10px;
+  }
+  .why-note {
+    background: #fffbeb; border-left: 3px solid #f59e0b;
+    padding: 8px 14px; font-size: 12px; color: #78350f; margin-bottom: 10px; border-radius: 0 6px 6px 0;
+  }
+
+  /* ── 汎用テーブル ── */
+  .data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .data-table thead tr { background: #2563a8; color: white; }
+  .data-table th { padding: 10px 14px; text-align: left; font-weight: 600; }
+  .data-table tbody tr { border-bottom: 1px solid #edf2f7; }
+  .data-table tbody tr:nth-child(even) { background: #f8faff; }
+  .data-table td { padding: 10px 14px; line-height: 1.6; }
+
+  /* ── ディスカッション ── */
+  .discussion-item { margin-bottom: 18px; }
+  .discussion-item:last-child { margin-bottom: 0; }
+  .discussion-topic {
+    font-size: 13px; font-weight: 700; color: #1a3a5c;
+    border-left: 3px solid #2563a8; padding-left: 10px; margin-bottom: 8px;
+  }
+  .qa { background: #f8faff; border-radius: 6px; padding: 12px 16px; margin-bottom: 6px; font-size: 13px; }
+  .qa .q { color: #2563a8; font-weight: 600; margin-bottom: 4px; }
+  .qa .a { color: #333; }
+
+  /* ── アクションアイテム ── */
+  .action-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+  .action-card { background: #f8faff; border-radius: 8px; padding: 16px; border-top: 3px solid #2563a8; }
+  .action-name { font-weight: 700; font-size: 13px; color: #1a3a5c; margin-bottom: 10px; }
+  .action-list { list-style: none; }
+  .action-list li { font-size: 12px; color: #444; padding: 4px 0; display: flex; gap: 8px; align-items: flex-start; }
+  .action-list li::before { content: '☐'; color: #2563a8; flex-shrink: 0; }
+
+  /* ── 特記事項 ── */
+  .notes-list { list-style: none; }
+  .notes-list li { padding: 6px 0 6px 24px; position: relative; font-size: 13px; border-bottom: 1px solid #f0f4f8; }
+  .notes-list li:last-child { border-bottom: none; }
+  .notes-list li::before { content: '▶'; color: #2563a8; position: absolute; left: 0; font-size: 10px; top: 9px; }
+
+  /* ── フッター ── */
+  footer { background: #1a3a5c; color: rgba(255,255,255,0.6); text-align: right; padding: 16px 48px; font-size: 12px; }
+
+  @media print {
+    body { background: white; }
+    .section { box-shadow: none; border: 1px solid #e0e7f0; }
+    header .back { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="logo">VIBECODING LAB</div>
+  </div>
+  <a href="index.html" class="back">← 第1期一覧に戻る</a>
+</header>
+
+<div class="title-block">
+  <div class="label">VIBECODING LAB 議事録</div>
+  <h1>第1期　第1回</h1>
+  <div class="date">2026年4月1日（水）</div>
+</div>
+
+<div class="container">
+
+  <!-- 今回の達成 -->
+  <div class="section">
+    <div class="section-header">🎉 今回の達成</div>
+    <div class="section-body">
+      <ul class="bullet-list">
+        <li>Claude Code をターミナルから起動した</li>
+        <li>Next.js を使って ToDoアプリのフロントエンドを作成した</li>
+        <li>ローカルサーバーで動作を確認した（localhost:3000）</li>
+        <li>GitHub にリポジトリを作成し、コードをプッシュした</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 会議基本情報 -->
+  <div class="section">
+    <div class="section-header">1. 会議基本情報</div>
+    <div class="section-body">
+      <table class="info-table">
+        <tr><th>日時</th><td>2026年4月1日（水）19:46 JST</td></tr>
+        <tr><th>形式</th><td>オンライン（ビデオ会議）</td></tr>
+        <tr><th>次回予定</th><td>2026年4月8日（水）20:00 JST　同一URLにて</td></tr>
+      </table>
+
+      <table class="member-table" style="margin-top:20px;">
+        <thead>
+          <tr><th>氏名</th><th>役割</th><th>備考</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>岡田 雄太</td><td>講師 / VIBECODING LAB 主宰</td><td>ファシリテーター</td></tr>
+          <tr><td>小池田さん</td><td>参加者</td><td>営業日報・シフト表DX推進</td></tr>
+          <tr><td>田中さん</td><td>参加者</td><td>現場タブレット活用推進</td></tr>
+          <tr><td>文田さん</td><td>参加者</td><td>IT化推進・事前環境構築済み</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 会議サマリー -->
+  <div class="section">
+    <div class="section-header">2. 会議サマリー</div>
+    <div class="section-body">
+      <p class="summary-text">
+        参加3社はいずれもIT化の遅れと紙ベース業務からの脱却が急務であり、社内データを自社で保有・活用するシステム内製化を優先目標として確認した。非エンジニアによる開発を可能にする「デジタルの民主化」を目指し、最上級手法であるClaude Codeターミナル操作によるバイブコーディングを採用。第1回はToDoアプリのフロントエンド作成とGitHub連携を完了し、初回目標を達成した。
+      </p>
+    </div>
+  </div>
+
+  <!-- 参加者の課題と目標 -->
+  <div class="section">
+    <div class="section-header">3. 参加者の課題と目標</div>
+    <div class="section-body">
+      <div class="person-section">
+        <div class="person-name">（1）小池田さん</div>
+        <ul class="bullet-list">
+          <li>社内デジタル化の遅れが深刻。データを外部委託せず、自社データベースで保有したい</li>
+          <li>優先開発目標①：営業担当者が収集した情報を社内共有するための「営業日報システム」</li>
+          <li>優先開発目標②：クレーンメンテナンスのシフト表（現状ホワイトボード管理）のデジタル化</li>
+          <li>今後も社内ニーズに応じて作りたいものを随時展開予定</li>
+        </ul>
+      </div>
+      <div class="person-section">
+        <div class="person-name">（2）田中さん</div>
+        <ul class="bullet-list">
+          <li>残業申請・安全書類・品質書類・不具合/災害報告など全書類がExcel印刷の紙運用</li>
+          <li>各現場担当者はタブレットを所持。タブレットを活用して不具合・災害情報を即時共有できるIT環境を構築したい</li>
+        </ul>
+      </div>
+      <div class="person-section">
+        <div class="person-name">（3）文田さん</div>
+        <ul class="bullet-list">
+          <li>社長主導でIT化が進んでいる企業。既存の社内ポータルあり</li>
+          <li>自身がエンジニアではないため、AI活用による開発成功体験を積み、社内に展開してITへの抵抗感を払拭したい</li>
+          <li>社員から自発的に開発アイデアが出る文化の醸成が最終目標</li>
+          <li>事前にVS Code + Claude Code環境構築済み。ログイン画面・ToDoアプリ・品質管理アプリの試作を完了</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 講義・技術内容 -->
+  <div class="section">
+    <div class="section-header">4. 講義・技術内容</div>
+    <div class="section-body">
+
+      <div class="sub-section">
+        <div class="sub-heading">（1）バイブコーディングとは</div>
+        <div class="why-note">💡 なぜ重要か：これがこの講座の核心。「AIに頼む」ではなく「AIと協働する」感覚を最初に掴むことが大切です。</div>
+        <ul class="bullet-list">
+          <li>自然言語（日本語）でAIに要望を伝えてコードを生成させる手法。2024年頃から普及</li>
+          <li>非エンジニアでも開発可能にする「デジタルの民主化」の時代が到来</li>
+          <li>実演：Claude AIで日本語指示のみ → 約1分でオセロゲーム（動作するWebアプリ）を生成</li>
+        </ul>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-heading">（2）バイブコーディングの2大ポイント</div>
+        <table class="data-table">
+          <thead><tr><th>ポイント</th><th>内容</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>① 概念理解</td>
+              <td>WebアプリがどのようなしくみForで動いているかを理解し、適切な用語でAIに指示を出す力。三層構造（フロントエンド・バックエンド・データベース）の把握が最重要</td>
+            </tr>
+            <tr>
+              <td>② トラブルシューティング力</td>
+              <td>AIとの対話量に比例して向上。エラーをそのままAIに貼り付けて解決策を得る。「AIに聞く → AIが出した選択肢から選ぶ」という思考シフトが重要</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-heading">（3）システム内製化の重要ポイント</div>
+        <div class="why-note">💡 なぜ重要か：今から自社DBにデータを溜めておくことが、将来のAI活用の土台になります。外部SaaSに頼りすぎると、その恩恵を受けられなくなります。</div>
+        <ul class="bullet-list">
+          <li>【データベース主権】：外部SaaSにデータを預けると、将来のAI活用が外部ベンダー依存・追加料金になる</li>
+          <li>【AIレディ状態】：今から自社DBに質の高いデータを蓄積しておくことで、AI活用の土台を先行整備</li>
+          <li>【AIの組み込み方】：汎用AIチャットを現場に渡すのではなく、内製アプリにAIをピンポイントで差し込む手法が中小企業の唯一の方法</li>
+          <li>【統合プラットフォーム構想】：ログイン画面を起点に、各種業務アプリを搭載した社内統合基盤を構築</li>
+        </ul>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-heading">（4）Webアプリの三層構造（概念）</div>
+        <table class="data-table">
+          <thead><tr><th>層</th><th>役割</th><th>技術・言語</th></tr></thead>
+          <tbody>
+            <tr><td>フロントエンド</td><td>ユーザーが見る画面</td><td>HTML（構造）・CSS（デザイン）・JavaScript（動き）</td></tr>
+            <tr><td>バックエンド</td><td>リクエスト処理・DB連携・外部API連携</td><td>Next.js（フロント・バック共通フレームワーク）</td></tr>
+            <tr><td>データベース</td><td>データの永続保存場所</td><td>次回以降接続予定。Neon等のクラウドDB</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-heading">（5）開発ツール選定：Claude Codeターミナル方式を採用</div>
+        <ul class="bullet-list">
+          <li>当初予定のReplitよりも、現在最注目のClaude Codeターミナル操作方式を採用（上級者向けだが最も処理速度が速い）</li>
+          <li>Claude Codeのモデル：Opus 4.6（高性能・高価格）/ Sonnet 4.6（推奨・中間）/ Haiku（安価・高速）</li>
+          <li>ターミナル方式はVS Code拡張機能方式より処理速度が高速。将来のAIエージェント構築にも最も適した手法</li>
+        </ul>
+      </div>
+
+      <div class="sub-section">
+        <div class="sub-heading">（6）ToDoアプリ作成〜GitHub連携（ハンズオン）</div>
+        <ul class="bullet-list">
+          <li>新規プロジェクトフォルダーを作成し、ターミナルでClaude Codeにフォルダーを指定（CDコマンド）</li>
+          <li>「Next.jsでToDoアプリのフロントエンドを最低限の仕様で作成してください」と日本語で指示</li>
+          <li><code>npm run dev</code> コマンドでローカルサーバー起動 → ブラウザの localhost:3000 でプレビュー確認</li>
+          <li>GitHubにリポジトリを作成しコードをプッシュ。コミット（セーブ）→ プッシュ（倉庫に送る）の2段構造を習得</li>
+          <li>【重要】リポジトリはセキュリティのため必ずPrivate設定にすること</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 主要ディスカッション -->
+  <div class="section">
+    <div class="section-header">5. 主要ディスカッション</div>
+    <div class="section-body">
+      <div class="discussion-item">
+        <div class="discussion-topic">AIへの口調の影響について</div>
+        <div class="qa">
+          <div class="q">Q（田中さん）：「強い口調だとAIの結果が変わるのか？」</div>
+          <div class="a">A（岡田さん）：口調を変えるとAIが「ちゃんとやったりする」ことがある。同じミスを繰り返す際に別のアプローチを促すと異なる解法を提示することも。</div>
+        </div>
+      </div>
+      <div class="discussion-item">
+        <div class="discussion-topic">文田さんの音声入力アイデア</div>
+        <ul class="bullet-list">
+          <li>現場の人はテキスト入力を嫌うため、音声入力→文字起こし→AIによる文章整形→マニュアル化というフローを提案</li>
+          <li>最初はシンプルなプロンプトから始め、機能を少しずつ追加していく開発方針を確認</li>
+        </ul>
+      </div>
+      <div class="discussion-item">
+        <div class="discussion-topic">学習アプローチの難易度について</div>
+        <div class="qa">
+          <div class="q">Q（文田さん）：「コマンドプロンプト方式は上級者向けでは？」</div>
+          <div class="a">A（岡田さん）：「この手法ができれば簡単な方法も全て扱える。今後のAIエージェント構築においても最主流の手法であるため、あえて最上級から始めた」</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 開発ロードマップ -->
+  <div class="section">
+    <div class="section-header">6. 今後の開発ロードマップ</div>
+    <div class="section-body">
+      <table class="data-table">
+        <thead><tr><th>フェーズ</th><th>目標</th><th>主な内容</th></tr></thead>
+        <tbody>
+          <tr style="background:#e8f5e9;">
+            <td><strong>第1回（完了）</strong></td>
+            <td>環境構築＋フロントエンド</td>
+            <td>Git・Node.jsインストール、Claude Codeセットアップ、ToDoアプリ作成、GitHub連携</td>
+          </tr>
+          <tr>
+            <td>第2回以降</td>
+            <td>フロントエンド充実化</td>
+            <td>各自のアイデアに基づいた画面・UI作成。様々な画面を作りながらClaude Codeに慣れる</td>
+          </tr>
+          <tr>
+            <td>中盤</td>
+            <td>データベース接続</td>
+            <td>データの永続化。NeonなどのクラウドDBとの接続。フロント→バックエンド→DB連携の実装</td>
+          </tr>
+          <tr>
+            <td>後半</td>
+            <td>AI機能追加＋公開</td>
+            <td>OpenAI API等を組み込んでアプリにAI機能を追加。Vercel等でインターネット公開</td>
+          </tr>
+          <tr>
+            <td>最終ゴール</td>
+            <td>統合プラットフォーム完成</td>
+            <td>ログイン画面と各種業務アプリを搭載した社内統合基盤の構築。AI組み込みによる業務効率化を実現</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 特記事項 -->
+  <div class="section">
+    <div class="section-header">7. 特記事項・申し送り</div>
+    <div class="section-body">
+      <ul class="notes-list">
+        <li>次回会議：2026年4月8日（水）20:00 JST / 同一URLにて開催</li>
+        <li>Claude Code ProプランはSonnet 4.6を標準使用。複雑なタスクの際はOpus 4.6に切り替え可</li>
+        <li>質問・相談はDiscordにて随時受付</li>
+        <li>GitHubリポジトリは必ずPrivate設定で作成すること（セキュリティ上の必須事項）</li>
+        <li>Mac mini（電源常時オン）を使ったClaude CodeのAIエージェント24時間稼働が最新トレンドとして紹介</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<footer>記録：岡田 雄太　　作成日：2026年4月1日　　VIBECODING LAB</footer>
+
+</body>
+</html>

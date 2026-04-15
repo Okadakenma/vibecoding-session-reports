@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neonデータベース セットアップガイド</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Hiragino Sans', 'Yu Gothic UI', sans-serif; background: #f4f7fb; color: #1a1a2e; font-size: 14px; line-height: 1.7; }
+
+  header {
+    background: linear-gradient(135deg, #1a3a5c 0%, #2563a8 100%);
+    color: white; padding: 28px 48px; display: flex; justify-content: space-between; align-items: center;
+  }
+  header .logo { font-size: 20px; font-weight: 700; letter-spacing: 2px; }
+  header .back { font-size: 12px; color: rgba(255,255,255,0.75); text-decoration: none; }
+  header .back:hover { color: white; }
+
+  .title-block {
+    background: white; border-bottom: 1px solid #e0e7f0;
+    padding: 36px 48px 28px;
+  }
+  .title-block .label { font-size: 12px; color: #2563a8; font-weight: 700; letter-spacing: 2px; }
+  .title-block h1 { font-size: 28px; font-weight: 700; margin: 8px 0 4px; color: #1a3a5c; }
+  .title-block .subtitle { font-size: 14px; color: #666; }
+
+  .container { max-width: 900px; margin: 0 auto; padding: 32px 24px 64px; }
+
+  .section {
+    background: white; border-radius: 10px; margin-bottom: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06); overflow: hidden;
+  }
+  .section-header {
+    background: #1a3a5c; color: white;
+    padding: 12px 24px; font-size: 14px; font-weight: 700; letter-spacing: 1px;
+  }
+  .section-body { padding: 24px; }
+
+  .step-block { border-left: 4px solid #2563a8; padding: 12px 16px; margin-bottom: 20px; }
+  .step-block:last-child { margin-bottom: 0; }
+  .step-title { font-weight: 700; color: #1a3a5c; margin-bottom: 6px; font-size: 14px; }
+  .step-why { background: #fffbeb; border: 1px solid #fde68a; border-radius: 6px; padding: 8px 12px; margin: 8px 0; font-size: 12px; color: #92400e; }
+  .step-block ul { padding-left: 18px; }
+  .step-block li { margin-bottom: 6px; }
+
+  .cmd-block {
+    background: #1e293b; color: #e2e8f0; border-radius: 6px;
+    padding: 10px 14px; margin: 10px 0; font-family: 'Menlo', 'Monaco', monospace;
+    font-size: 13px; line-height: 1.6; word-break: break-all;
+  }
+  .cmd-block .comment { color: #64748b; }
+  .cmd-block .key { color: #86efac; }
+
+  code { background: #f1f5f9; color: #1a3a5c; padding: 1px 5px; border-radius: 3px; font-family: 'Menlo', 'Monaco', monospace; font-size: 12px; }
+
+  .tip-block { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 6px; padding: 12px 16px; margin-top: 8px; font-size: 13px; color: #166534; }
+  .warn-block { background: #fff1f2; border: 1px solid #fecdd3; border-radius: 6px; padding: 12px 16px; margin-top: 8px; font-size: 13px; color: #9f1239; }
+
+  .back-icon { width: 12px; height: 12px; vertical-align: -1px; margin-right: 2px; stroke: rgba(255,255,255,0.75); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .section-icon { width: 16px; height: 16px; margin-right: 8px; vertical-align: -3px; stroke: white; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .why-icon { width: 13px; height: 13px; vertical-align: -2px; margin-right: 5px; stroke: #92400e; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  footer { background: #1a3a5c; color: rgba(255,255,255,0.7); text-align: center; padding: 24px; font-size: 12px; }
+
+  @media (max-width: 640px) {
+    header { padding: 16px 20px; }
+    header .logo { font-size: 16px; }
+    .title-block { padding: 20px; }
+    .title-block h1 { font-size: 20px; }
+    .section-header { padding: 10px 16px; font-size: 13px; }
+    .section-body { padding: 16px; }
+    .step-block { padding: 10px 12px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">VIBECODING LAB</div>
+  <a href="2026-04-15-第1期第3回.html" class="back"><svg class="back-icon" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>セッションレポートに戻る</a>
+</header>
+
+<div class="title-block">
+  <div class="label">REFERENCE GUIDE — 第1期</div>
+  <h1>Neonデータベース セットアップガイド</h1>
+  <div class="subtitle">アカウント作成からコネクション文字列の取得・アプリへの設定まで</div>
+</div>
+
+<div class="container">
+
+  <div class="section">
+    <div class="section-header"><svg class="section-icon" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>セットアップ手順</div>
+    <div class="section-body">
+
+      <!-- STEP 1 -->
+      <div class="step-block">
+        <div class="step-title">STEP 1：Neonアカウントを作成する</div>
+        <div class="step-why"><svg class="why-icon" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>Neonはクラウド上のPostgreSQLデータベースサービス。ローカルにデータを保存する代わりにNeonを使うことで、どこからでもアクセスできる本格的なDBが無料で使える。</div>
+        <ul>
+          <li><a href="https://neon.tech" target="_blank">neon.tech</a> にアクセスする</li>
+          <li>「Sign Up」をクリック → 「Continue with GitHub」でGitHubアカウントで登録する</li>
+          <li>メール認証が求められた場合は届いたメールのリンクをクリックする</li>
+          <li>ダッシュボードが表示されればアカウント作成完了</li>
+        </ul>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="step-block">
+        <div class="step-title">STEP 2：新しいプロジェクトを作成する</div>
+        <ul>
+          <li>Neonダッシュボードで「New Project」をクリック</li>
+          <li>以下を設定する：
+            <ul style="margin-top:6px;">
+              <li><strong>Project name</strong>：アプリ名を入力（例：<code>todo-app</code>）</li>
+              <li><strong>Database name</strong>：そのままでOK（デフォルト: <code>neondb</code>）</li>
+              <li><strong>Region</strong>：<code>Asia Pacific (Tokyo)</code> を選択（日本から最速）</li>
+            </ul>
+          </li>
+          <li>「Create Project」をクリック</li>
+        </ul>
+        <div class="tip-block">無料プランで1プロジェクト・0.5GBまで利用可能。学習用途には十分な容量。</div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="step-block">
+        <div class="step-title">STEP 3：コネクション文字列を取得する</div>
+        <div class="step-why"><svg class="why-icon" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>コネクション文字列はアプリがデータベースに接続するためのURL（パスワード相当）。これを取得してアプリの設定ファイルに貼り付けることでDB接続が確立する。</div>
+        <ul>
+          <li>プロジェクト作成後、ダッシュボードの「Connection Details」または「Connect」ボタンをクリック</li>
+          <li>表示される接続情報の中から <strong>「Connection string」</strong> のタブを選択</li>
+          <li>以下のような文字列が表示されるのでコピーボタンを押してコピーする</li>
+        </ul>
+        <div class="cmd-block"><span class="comment"># コネクション文字列の例（postgresqlで始まる長いURL）</span>
+<span class="key">postgresql://username:password@ep-xxx.ap-southeast-1.aws.neon.tech/neondb?sslmode=require</span></div>
+        <div class="warn-block">コネクション文字列にはパスワードが含まれる。GitHubには絶対にアップロードしないこと（.gitignoreで保護されているが注意）。</div>
+      </div>
+
+      <!-- STEP 4 -->
+      <div class="step-block">
+        <div class="step-title">STEP 4：<code>.env.local</code> に登録する</div>
+        <ul>
+          <li>プロジェクトのルートにある <code>.env.local</code> ファイルをVS Codeで開く</li>
+          <li>以下の行を追加して、コピーしたコネクション文字列を貼り付ける</li>
+        </ul>
+        <div class="cmd-block">DATABASE_URL=<span class="key">postgresql://username:password@ep-xxx.ap-southeast-1.aws.neon.tech/neondb?sslmode=require</span></div>
+        <ul>
+          <li>ファイルを保存する（<code>Cmd+S</code> / <code>Ctrl+S</code>）</li>
+        </ul>
+        <div class="tip-block"><code>.env.local</code> ファイルが存在しない場合は、プロジェクトのルートに新規作成する。</div>
+      </div>
+
+      <!-- STEP 5 -->
+      <div class="step-block">
+        <div class="step-title">STEP 5：Claude Codeでテーブルを自動生成する</div>
+        <ul>
+          <li><code>.env.local</code> を保存後、Claude Codeに以下のように指示する</li>
+        </ul>
+        <div class="cmd-block"><span class="comment"># Claude Codeへの指示例</span>
+「DATABASE_URLを設定しました。Prismaを使ってデータベースにテーブルを作成してください」</div>
+        <ul>
+          <li>Claude Codeが <code>prisma migrate dev</code> を実行し、テーブルが自動生成される</li>
+          <li>Neonダッシュボードの「Tables」タブでテーブルが作成されたことを確認できる</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- コネクション文字列の再取得 -->
+  <div class="section">
+    <div class="section-header"><svg class="section-icon" viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.51"/></svg>コネクション文字列を再取得する場合</div>
+    <div class="section-body">
+      <div class="step-block">
+        <div class="step-title">新しいプロジェクトに切り替えた・文字列を紛失した場合</div>
+        <ul>
+          <li>Neonダッシュボードにログインする</li>
+          <li>対象のプロジェクトを選択する</li>
+          <li>左メニューの「Connection Details」をクリック</li>
+          <li>「Connection string」をコピーして <code>.env.local</code> の <code>DATABASE_URL</code> を更新する</li>
+          <li>Vercelにもデプロイしている場合は「Settings → Environment Variables」の <code>DATABASE_URL</code> も同様に更新し、再デプロイする</li>
+        </ul>
+        <div class="warn-block"><code>.env</code> と <code>.env.local</code> の両方にDATABASE_URLが存在する場合、<code>.env.local</code> が優先される。古い値が残っていると競合するため、両ファイルを確認すること。</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  作成：岡田雄太 ／ 2026年4月15日 ／ VIBECODING LAB
+</footer>
+
+</body>
+</html>

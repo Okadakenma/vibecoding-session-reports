@@ -214,45 +214,9 @@
     </div>
   </div>
 
-  <!-- 3. 参加者の課題と目標 -->
+  <!-- 3. 講義・技術内容 -->
   <div class="section">
-    <div class="section-header">3. 参加者の課題と目標</div>
-    <div class="section-body">
-
-      <div class="person-block">
-        <div class="person-name">小池田康徳（株式会社北都鉄工）</div>
-        <ul>
-          <li>Neonのコネクション文字列を<code>.env.local</code>に登録し、テーブル作成・CRUD動作を確認した</li>
-          <li>Vercelへのデプロイに成功し、インターネット上にアプリを公開した</li>
-          <li>VS Codeの日本語化手順をClaude Codeに確認して設定した</li>
-          <li>GitリポジトリURLの問題を解決し、Discordにデプロイリンクを共有した</li>
-        </ul>
-      </div>
-
-      <div class="person-block">
-        <div class="person-name">田中翔（株式会社北日本テクノス）</div>
-        <ul>
-          <li>VS Codeのインストールとターミナル操作環境の整備を進めた</li>
-          <li>残業・有給申請機能を持つアプリのデータベース接続に取り組み、VercelへのデプロイとGitプッシュに成功した</li>
-          <li>DB操作検証として、アプリからのデータ登録・削除・編集とNeonテーブルの変化を確認する作業が残っている</li>
-        </ul>
-      </div>
-
-      <div class="person-block">
-        <div class="person-name">文田浩輔（株式会社小林製作所）</div>
-        <ul>
-          <li>「旅のしおり」アプリをNext.js・Neon・Vercel構成で既にデプロイ済み。個人の知識管理ポータルとしても活用している</li>
-          <li>DBのURLを新しいプロジェクトのものに更新し、<code>.env</code>と<code>.env.local</code>の競合を解消した</li>
-          <li>Prisma migrationsテーブルの目的とカテゴリー用リレーショナルテーブルの作成が次のステップとなっている</li>
-        </ul>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- 4. 講義・技術内容 -->
-  <div class="section">
-    <div class="section-header">4. 講義・技術内容</div>
+    <div class="section-header">3. 講義・技術内容</div>
     <div class="section-body">
 
       <div class="tech-block">
@@ -275,7 +239,7 @@
           <li>親子関係の設計：大元のデータ（親）に対して詳細データ（子）をIDでぶら下げる</li>
           <li>将来的に増えるデータ（カテゴリー・タグ等）はマスターテーブルとして独立させ、IDで参照する</li>
           <li>Claude Codeにアプリのプレビューを見せ、テーブル構造案を提案させる方法が有効</li>
-          <li>次回以降は開発前にAIとテーブル設計・仕様を完全に固めてから実装に入る「仕様駆動開発」を採用する</li>
+          <li>次回以降は開発前にAIとテーブル設計・仕様を完全に固めてから実装に入る</li>
         </ul>
       </div>
 
@@ -288,6 +252,7 @@
           <li><code>.env</code>と<code>.env.local</code>はどちらも環境変数ファイルだが、<code>.env.local</code>はNext.jsでローカル優先とされ、より安全に機密情報を管理できる</li>
           <li>接続設定後、Claude Codeへの指示でPrismaがデータベース上にテーブルを自動生成する</li>
         </ul>
+        <p style="margin-top:12px; font-size:13px;"><a href="neon-setup-guide.html" style="color:#2563a8; font-weight:700;">→ アカウント作成〜コネクション文字列取得の詳細手順はこちら</a></p>
       </div>
 
       <div class="tech-block">
@@ -322,28 +287,29 @@
           <li>デプロイ失敗時はVercelのビルドログをコピーしてClaude Codeに貼り付けるとエラー原因を特定できる</li>
           <li>エラー発生時はブラウザの<code>Ctrl+Shift+I</code>でコンソールを開き、ログをClaude Codeに渡す</li>
         </ul>
+        <p style="margin-top:12px; font-size:13px;"><a href="vercel-deploy-guide.html" style="color:#2563a8; font-weight:700;">→ 詳細なステップバイステップ手順はこちら</a></p>
       </div>
 
     </div>
   </div>
 
-  <!-- 5. 主要ディスカッション -->
+  <!-- 4. 主要ディスカッション -->
   <div class="section">
-    <div class="section-header">5. 主要ディスカッション（Q&A）</div>
+    <div class="section-header">4. 主要ディスカッション（Q&A）</div>
     <div class="section-body">
 
       <div class="qa-item">
-        <div class="qa-q">Q. ローカルでVercelにデプロイした後、GitHubの1つ前のバージョンに戻したらVercelのデプロイはどうなる？（岡田雄太）</div>
-        <div class="qa-a">GitHubにプッシュした内容がVercelに反映されるため、ロールバックしたコミットをプッシュすれば自動的に以前のバージョンでデプロイし直される。GitHubのバージョン管理とVercelのデプロイは連動している。</div>
+        <div class="qa-q">Q. ローカルでVercelにデプロイした後、GitHubの1つ前のバージョンに戻したらVercelのデプロイはどうなる？</div>
+        <div class="qa-a">GitHubにプッシュした内容がVercelに反映されるため、ロールバックしたコミットをプッシュすれば自動的に以前のバージョンでデプロイし直される。GitHubのバージョン管理とVercelのデプロイは連動している。（前回質問内容）</div>
       </div>
 
       <div class="qa-item">
-        <div class="qa-q">Q. <code>.env</code>と<code>.env.local</code>の2つのファイルがある意味は？（文田浩輔）</div>
+        <div class="qa-q">Q. <code>.env</code>と<code>.env.local</code>の2つのファイルがある意味は？</div>
         <div class="qa-a">どちらも環境変数を管理するファイルだが、<code>.env.local</code>はNext.jsがローカル環境で優先的に読み込む設定ファイル。<code>.env</code>はデフォルト値として使われることが多い。両方存在する場合は<code>.env.local</code>の値が優先されるため、ローカル開発時の機密情報は<code>.env.local</code>に記述するのが安全な慣習。</div>
       </div>
 
       <div class="qa-item">
-        <div class="qa-q">Q. Neonに作られた<code>_prisma_migrations</code>テーブルの目的は？（文田浩輔）</div>
+        <div class="qa-q">Q. Neonに作られた<code>_prisma_migrations</code>テーブルの目的は？</div>
         <div class="qa-a">Prismaがデータベース構造の変更履歴（テーブル作成・カラム追加等）を記録するためのシステムテーブル。このテーブルにより、どのマイグレーション（DB変更）が適用済みかを管理し、同じ変更が二重に実行されることを防いでいる。直接編集する必要はない。</div>
       </div>
 
@@ -360,9 +326,9 @@
     </div>
   </div>
 
-  <!-- 6. 今後の開発ロードマップ -->
+  <!-- 5. 今後の開発ロードマップ -->
   <div class="section">
-    <div class="section-header">6. 今後の開発ロードマップ（全8回）</div>
+    <div class="section-header">5. 今後の開発ロードマップ（全8回）</div>
     <div class="section-body">
       <table class="roadmap-table">
         <thead>
@@ -390,7 +356,7 @@
           <tr>
             <td>第4回</td>
             <td>5月21日</td>
-            <td>仕様書・CLAUDE.mdの書き方／仕様駆動でサンプルアプリ作成／各社アプリ仕様書作成</td>
+            <td>認証認可／仕様書・CLAUDE.mdの書き方／仕様書でサンプルアプリ作成／各社アプリ仕様書作成</td>
             <td>次回</td>
           </tr>
           <tr>
@@ -422,9 +388,9 @@
     </div>
   </div>
 
-  <!-- 7. その他 -->
+  <!-- 6. その他 -->
   <div class="section">
-    <div class="section-header">7. その他</div>
+    <div class="section-header">6. その他</div>
     <div class="section-body" style="font-size:13px;">
       <p>今回の内容が難解であったことを受け、次回以降は対面またはハイブリッド形式（来られるメンバーは現地、文田浩輔はオンライン参加）での開催が検討・決定された。また今後は開発着手前にAIとテーブル構造・仕様を完全に固めてから実装する「仕様駆動開発」の手法を導入することが合意された。</p>
     </div>

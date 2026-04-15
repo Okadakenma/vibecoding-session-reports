@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vercelデプロイ手順ガイド（GitHub連携）</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Hiragino Sans', 'Yu Gothic UI', sans-serif; background: #f4f7fb; color: #1a1a2e; font-size: 14px; line-height: 1.7; }
+
+  header {
+    background: linear-gradient(135deg, #1a3a5c 0%, #2563a8 100%);
+    color: white; padding: 28px 48px; display: flex; justify-content: space-between; align-items: center;
+  }
+  header .logo { font-size: 20px; font-weight: 700; letter-spacing: 2px; }
+  header .back { font-size: 12px; color: rgba(255,255,255,0.75); text-decoration: none; }
+  header .back:hover { color: white; }
+
+  .title-block {
+    background: white; border-bottom: 1px solid #e0e7f0;
+    padding: 36px 48px 28px;
+  }
+  .title-block .label { font-size: 12px; color: #2563a8; font-weight: 700; letter-spacing: 2px; }
+  .title-block h1 { font-size: 28px; font-weight: 700; margin: 8px 0 4px; color: #1a3a5c; }
+  .title-block .subtitle { font-size: 14px; color: #666; }
+
+  .container { max-width: 900px; margin: 0 auto; padding: 32px 24px 64px; }
+
+  .section {
+    background: white; border-radius: 10px; margin-bottom: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06); overflow: hidden;
+  }
+  .section-header {
+    background: #1a3a5c; color: white;
+    padding: 12px 24px; font-size: 14px; font-weight: 700; letter-spacing: 1px;
+  }
+  .section-body { padding: 24px; }
+
+  .step-block { border-left: 4px solid #2563a8; padding: 12px 16px; margin-bottom: 20px; }
+  .step-block:last-child { margin-bottom: 0; }
+  .step-title { font-weight: 700; color: #1a3a5c; margin-bottom: 6px; font-size: 14px; }
+  .step-why { background: #fffbeb; border: 1px solid #fde68a; border-radius: 6px; padding: 8px 12px; margin: 8px 0; font-size: 12px; color: #92400e; }
+  .step-block ul { padding-left: 18px; }
+  .step-block li { margin-bottom: 6px; }
+
+  .step-block.optional { border-left-color: #94a3b8; }
+  .step-block.optional .step-title { color: #475569; }
+
+  .badge-optional {
+    display: inline-block; font-size: 10px; font-weight: 700;
+    background: #e2e8f0; color: #64748b; border-radius: 4px;
+    padding: 1px 6px; margin-left: 8px; vertical-align: middle;
+  }
+
+  .cmd-block {
+    background: #1e293b; color: #e2e8f0; border-radius: 6px;
+    padding: 10px 14px; margin: 10px 0; font-family: 'Menlo', 'Monaco', monospace;
+    font-size: 13px; line-height: 1.6;
+  }
+  .cmd-block .comment { color: #64748b; }
+
+  code { background: #f1f5f9; color: #1a3a5c; padding: 1px 5px; border-radius: 3px; font-family: 'Menlo', 'Monaco', monospace; font-size: 12px; }
+
+  .tip-block { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 6px; padding: 12px 16px; margin-top: 8px; font-size: 13px; color: #166534; }
+
+  .error-block { background: #fff1f2; border: 1px solid #fecdd3; border-radius: 6px; padding: 12px 16px; margin-top: 8px; font-size: 13px; color: #9f1239; }
+
+  .back-icon { width: 12px; height: 12px; vertical-align: -1px; margin-right: 2px; stroke: rgba(255,255,255,0.75); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .section-icon { width: 16px; height: 16px; margin-right: 8px; vertical-align: -3px; stroke: white; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .why-icon { width: 13px; height: 13px; vertical-align: -2px; margin-right: 5px; stroke: #92400e; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  footer { background: #1a3a5c; color: rgba(255,255,255,0.7); text-align: center; padding: 24px; font-size: 12px; }
+
+  @media (max-width: 640px) {
+    header { padding: 16px 20px; }
+    header .logo { font-size: 16px; }
+    .title-block { padding: 20px; }
+    .title-block h1 { font-size: 20px; }
+    .section-header { padding: 10px 16px; font-size: 13px; }
+    .section-body { padding: 16px; }
+    .step-block { padding: 10px 12px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">VIBECODING LAB</div>
+  <a href="2026-04-15-第1期第3回.html" class="back"><svg class="back-icon" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>セッションレポートに戻る</a>
+</header>
+
+<div class="title-block">
+  <div class="label">REFERENCE GUIDE — 第1期</div>
+  <h1>Vercelデプロイ手順ガイド（GitHub連携）</h1>
+  <div class="subtitle">GitHubと連携して自動デプロイ環境を構築するステップバイステップガイド</div>
+</div>
+
+<div class="container">
+
+  <div class="section">
+    <div class="section-header"><svg class="section-icon" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>デプロイ手順</div>
+    <div class="section-body">
+
+      <!-- STEP 0 -->
+      <div class="step-block optional">
+        <div class="step-title">STEP 0：Vercel CLIのインストール<span class="badge-optional">任意</span></div>
+        <ul>
+          <li>ターミナルで以下を実行してVercel CLIをインストールする</li>
+        </ul>
+        <div class="cmd-block">npm install -g vercel</div>
+        <ul>
+          <li>インストール後、以下でVercelにログイン（ブラウザが開いて認証される）</li>
+        </ul>
+        <div class="cmd-block">vercel login</div>
+        <div class="tip-block">CLIは任意。GitHub連携によるWeb画面からのデプロイのみであれば不要。</div>
+      </div>
+
+      <!-- STEP 1 -->
+      <div class="step-block">
+        <div class="step-title">STEP 1：Vercelアカウント作成・GitHubで認証</div>
+        <div class="step-why"><svg class="why-icon" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>GitHubアカウントで認証することが自動デプロイの前提条件。メール登録の場合は後からGitHub連携が必要になる。</div>
+        <ul>
+          <li><a href="https://vercel.com" target="_blank">vercel.com</a> にアクセスする</li>
+          <li>「Sign Up」→「Continue with GitHub」を選択する</li>
+          <li>GitHubの認証画面でアカウントを選択して許可する</li>
+          <li>Vercelのダッシュボードが表示されればアカウント作成完了</li>
+        </ul>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="step-block">
+        <div class="step-title">STEP 2：VercelにGitHub Appをインストール</div>
+        <div class="step-why"><svg class="why-icon" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>VercelがGitHubリポジトリを読み取るために、GitHub App（連携アプリ）のインストールが必要。初回のみ実施。</div>
+        <ul>
+          <li>「Add New → Project」をクリックすると、GitHubリポジトリの選択画面が表示される</li>
+          <li>リポジトリが表示されない場合は「Adjust GitHub App Permissions」または「Install GitHub App」をクリック</li>
+          <li>GitHubのインストール画面で「All repositories（全リポジトリ）」または「Only select repositories（特定リポジトリのみ）」を選択</li>
+          <li>「Install」ボタンをクリックして許可する</li>
+          <li>Vercelの画面に戻ると、リポジトリ一覧が表示される</li>
+        </ul>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="step-block">
+        <div class="step-title">STEP 3：GitHubにコードをプッシュ</div>
+        <ul>
+          <li>デプロイしたいコードをGitHubにプッシュする</li>
+        </ul>
+        <div class="cmd-block"><span class="comment"># 変更をすべてステージング</span>
+git add .
+<span class="comment"># コミットメッセージを付けて確定</span>
+git commit -m "デプロイ準備"
+<span class="comment"># GitHubのmainブランチにプッシュ</span>
+git push origin main</div>
+      </div>
+
+      <!-- STEP 4 -->
+      <div class="step-block">
+        <div class="step-title">STEP 4：Vercelで新しいプロジェクトを作成</div>
+        <ul>
+          <li>Vercelダッシュボードで「Add New → Project」をクリック</li>
+          <li>「Import Git Repository」の一覧からデプロイしたいリポジトリを選択</li>
+          <li>「Import」をクリック</li>
+          <li>Framework Preset が「Next.js」になっていることを確認する（自動検出される）</li>
+        </ul>
+      </div>
+
+      <!-- STEP 5 -->
+      <div class="step-block">
+        <div class="step-title">STEP 5：環境変数を設定（重要）</div>
+        <div class="step-why"><svg class="why-icon" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg><code>.env.local</code> は <code>.gitignore</code> によりGitHubに上がらない。Vercel側で別途設定しないとデプロイ後にDB接続が失敗するため必須。</div>
+        <ul>
+          <li>プロジェクト作成画面の「Environment Variables」セクションを開く</li>
+          <li>以下の変数を1つずつ「Name」「Value」に入力して「Add」をクリック</li>
+        </ul>
+        <div class="cmd-block"><span class="comment"># データベース接続URL（Neonのコネクション文字列）</span>
+DATABASE_URL = postgresql://...
+
+<span class="comment"># Anthropic APIキー</span>
+ANTHROPIC_API_KEY = sk-ant-...
+
+<span class="comment"># その他 .env.local に記載の変数をすべて追加</span></div>
+        <div class="tip-block">後から追加・変更する場合は、Vercelダッシュボードの「Settings → Environment Variables」から編集できる。変更後は再デプロイが必要。</div>
+      </div>
+
+      <!-- STEP 6 -->
+      <div class="step-block">
+        <div class="step-title">STEP 6：デプロイ実行</div>
+        <ul>
+          <li>「Deploy」ボタンをクリックする</li>
+          <li>ビルドログがリアルタイムで表示される（数分かかる）</li>
+          <li>「Congratulations!」と表示されればデプロイ成功</li>
+          <li>発行されたURLをクリックしてアプリが表示されることを確認する</li>
+        </ul>
+      </div>
+
+      <!-- STEP 7 -->
+      <div class="step-block">
+        <div class="step-title">STEP 7：以降は自動デプロイ</div>
+        <ul>
+          <li>GitHubの <code>main</code> ブランチに <code>git push</code> するたびに、Vercelが自動でビルド・デプロイを実行する</li>
+          <li>デプロイ状況はVercelダッシュボードの「Deployments」タブで確認できる</li>
+        </ul>
+        <div class="tip-block">コードを修正したら「git add → git commit → git push」の3ステップだけで本番環境に反映される。</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- エラー対処 -->
+  <div class="section">
+    <div class="section-header"><svg class="section-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>エラー時の対処法</div>
+    <div class="section-body">
+
+      <div class="step-block">
+        <div class="step-title">ビルドエラーの場合</div>
+        <ul>
+          <li>Vercelダッシュボードの「Deployments」タブを開く</li>
+          <li>失敗したデプロイをクリック →「View Build Logs」を開く</li>
+          <li>赤く表示されているエラーログをコピーして、Claude Codeに貼り付ける</li>
+        </ul>
+      </div>
+
+      <div class="step-block">
+        <div class="step-title">デプロイ成功後にアプリがエラーになる場合</div>
+        <ul>
+          <li>まず環境変数の設定漏れを確認する（「Settings → Environment Variables」）</li>
+          <li>ブラウザで <code>Ctrl+Shift+I</code>（Mac: <code>Cmd+Option+I</code>）を押してコンソールを開く</li>
+          <li>赤いエラーメッセージをコピーしてClaude Codeに貼り付ける</li>
+        </ul>
+        <div class="error-block">DB接続エラーが多い場合は <code>DATABASE_URL</code> の値が正しく設定されているか確認する。Neonのダッシュボードからコネクション文字列をコピーし直すと解決することが多い。</div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  作成：岡田雄太 ／ 2026年4月15日 ／ VIBECODING LAB
+</footer>
+
+</body>
+</html>

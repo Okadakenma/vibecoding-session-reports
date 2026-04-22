@@ -159,9 +159,8 @@
     <div class="section-header"><svg class="section-icon" viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>今回の達成</div>
     <div class="section-body">
       <div class="achievement-list">
-        <div class="achievement-item"><div class="ach-dot"><svg class="check-icon" style="margin:0" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>備品管理システムを約1時間で試作完成</div>
         <div class="achievement-item"><div class="ach-dot"><svg class="check-icon" style="margin:0" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>フロントエンドデザインスキルのインストール・起動成功</div>
-        <div class="achievement-item"><div class="ach-dot"><svg class="check-icon" style="margin:0" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>コンテキストエンジニアリングの概念習得</div>
+        <div class="achievement-item"><div class="ach-dot"><svg class="check-icon" style="margin:0" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>コンテキストエンジニアリングの概念</div>
         <div class="achievement-item"><div class="ach-dot"><svg class="check-icon" style="margin:0" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>仕様書駆動開発フローの確立</div>
         <div class="achievement-item"><div class="ach-dot"><svg class="check-icon" style="margin:0" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>認証・認可の概念習得</div>
         <div class="achievement-item"><div class="ach-dot"><svg class="check-icon" style="margin:0" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>統合ログイン基盤の方針決定・各社アプリ仕様書作成開始</div>
@@ -291,7 +290,7 @@
         <div class="tech-title">⑦ 既存システム連携の自動化（Python・Playwright）</div>
         <div class="tech-why"><svg class="why-icon" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>なぜ重要か：新規アプリを作るだけでなく、既存の業務システムとの連携を自動化できると、RPA的な価値を低コストで実現できる。</div>
         <ul>
-          <li><strong>課題例（田中翔）</strong>：NIコラボ360からCSV出力 → 手動で不要列を削除 → 生産管理システムへインポート、という手作業の自動化</li>
+          <li><strong>課題例</strong>：NIコラボ360からCSV出力 → 手動で不要列を削除 → 生産管理システムへインポート、という手作業の自動化</li>
           <li><strong>提案解決策</strong>：ClaudeでWebアプリを作り所定のCSV形式で出力 → Pythonで突合・自動インポート</li>
           <li><strong>Playwright</strong>：ブラウザ操作を自動化するOSSフレームワーク。Claudeと組み合わせることで既存Webアプリの操作も自動化できる</li>
           <li>Python + Playwright + Windowsタスクスケジューラを組み合わせることで、CSVダウンロードからクラウドストレージへのアップロードまでの一連処理を自動化できる</li>
@@ -307,33 +306,23 @@
     <div class="section-body">
 
       <div class="qa-item">
-        <div class="qa-q">Q. VS CodeでClaudeを開こうとするとログインが外れてAPIキーエラーが発生する。（田中翔）</div>
+        <div class="qa-q">Q. VS CodeでClaudeを開こうとするとログインが外れてAPIキーエラーが発生する。</div>
         <div class="qa-a">ログインが外れた状態のため、「ログイン」を実行してサブスクリプションと紐付けることで解決できる。APIキーを手動で入力する画面が表示された場合は、ログイン操作を選ぶ。</div>
       </div>
 
       <div class="qa-item">
-        <div class="qa-q">Q. 認証にGoogleアカウントのOAuth認証を使えるか？（小池田康徳）</div>
+        <div class="qa-q">Q. 認証にGoogleアカウントのOAuth認証を使えるか？</div>
         <div class="qa-a">実装自体は可能。ただし、会社全員がGoogleアカウントを持っている場合のみ有効。そうでない場合はログインできないユーザーが出るため、メールアドレス＋パスワード方式を基本とすることを推奨。</div>
       </div>
 
       <div class="qa-item">
-        <div class="qa-q">Q. 日報アプリで週次レポートを自動生成する際、Vercel Cron Jobsを使って問題ないか？（小池田康徳）</div>
+        <div class="qa-q">Q. 日報アプリで週次レポートを自動生成する際、Vercel Cron Jobsを使って問題ないか？</div>
         <div class="qa-a">デプロイ済みアプリのスケジュール実行にはVercel Cron Jobsを使う想定で問題ない。無料プランでは1日1回まで実行可能。それ以上の頻度が必要な場合は有料プランへのアップグレードを検討する。</div>
       </div>
 
       <div class="qa-item">
-        <div class="qa-q">Q. 日報に写真を添付する場合、画像ストレージはどれを使うべきか？（小池田康徳）</div>
+        <div class="qa-q">Q. 日報に写真を添付する場合、画像ストレージはどれを使うべきか？</div>
         <div class="qa-a">Cloudflare R2の使用が最も簡単でおすすめ。画像・PDFどちらにも対応しており、コストも安価。コストを抑えるためにも、ファイル類はNeonに保存せず外部ストレージに置くのが鉄則。</div>
-      </div>
-
-      <div class="qa-item">
-        <div class="qa-q">Q. 統合ポータル配下に複数アプリのフォルダーを置くとClaudeのコンテキストが圧迫されないか？（文田浩輔）</div>
-        <div class="qa-a">懸念は正しい。対策として親フォルダの <code>CLAUDE.md</code> に「現在作業中のプロジェクト以外のソースを読み込まないルール」を記述することでコンテキストの圧迫を防げる可能性がある。ディレクトリ設計はClaude Codeと相談しながら決める。</div>
-      </div>
-
-      <div class="qa-item">
-        <div class="qa-q">Q. ChatGPTやGeminiとClaudeの違いは何か？</div>
-        <div class="qa-a">ChatGPTやGeminiは指示に対して積極的に進める傾向があるのに対し、Claudeは不明点や確認事項を都度ユーザーに尋ねる慎重な設計になっている。仕様を固める上流工程ではClaudeの慎重さが品質向上に直結する。</div>
       </div>
 
     </div>
@@ -406,7 +395,6 @@
     <div class="section-header">6. その他</div>
     <div class="section-body" style="font-size:13px;">
       <p>今回で第1〜4回の基礎知識習得フェーズが完了し、AIに指示を出すだけでWebアプリを作れる基盤が整った。残り4回（〜6月）で各社が統合ログイン基盤を軸に業務アプリを完成させるフェーズに移行する。参加者には3週間の間隔を活かして知識を定着させ、積極的に仕様書作成・開発を進めることが促された。</p>
-      <p style="margin-top:10px;">なお、AnthropicがMythosというモデルを開発したがサイバー攻撃リスクが高すぎるためリリースを取り下げたという情報も共有され、AIの高い能力がもたらす潜在的なセキュリティリスクへの理解を深めた。</p>
     </div>
   </div>
 

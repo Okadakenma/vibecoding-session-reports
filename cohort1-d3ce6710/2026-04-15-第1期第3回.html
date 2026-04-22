@@ -210,7 +210,7 @@
     <div class="section-body">
       <p>第3回では、フルスタック開発の最重要工程となるデータベース接続・設計・デプロイの3テーマを一気通貫で実施した。</p>
       <p style="margin-top:10px;">前半は<strong>リレーショナルデータベースの概念</strong>（テーブル・カラム・レコード・主キー・外部キー）を丁寧に解説し、テーブル同士をIDで紐づける設計思想を学んだ。続いてNeonでToDoアプリ用のプロジェクトを作成し、コネクション文字列を<code>.env.local</code>に登録してデータベースに接続。Claude Codeを使ってテーブルを自動生成し、アプリからの読み書きが動作することを確認した。</p>
-      <p style="margin-top:10px;">後半はVercelへのデプロイに取り組み、<strong>環境変数の設定がローカルと本番で別管理になる理由</strong>を実感を通じて習得。GitHubにプッシュするだけで自動デプロイが走る仕組みを構築した。最終的に小池田康徳・田中翔両名がインターネットへの公開に成功し、データベース接続・AI連携・デプロイを揃えた本格的なフルスタックアプリをリリースした。</p>
+      <p style="margin-top:10px;">後半はVercelへのデプロイに取り組み、<strong>環境変数の設定がローカルと本番で別管理になる理由</strong>を実感を通じて習得。GitHubにプッシュするだけで自動デプロイが走る仕組みを構築した。最終的に全員がインターネットへの公開に成功し、データベース接続・AI連携・デプロイを揃えた本格的なフルスタックアプリをリリースした。</p>
     </div>
   </div>
 
@@ -252,7 +252,6 @@
           <li><code>.env</code>と<code>.env.local</code>はどちらも環境変数ファイルだが、<code>.env.local</code>はNext.jsでローカル優先とされ、より安全に機密情報を管理できる</li>
           <li>接続設定後、Claude Codeへの指示でPrismaがデータベース上にテーブルを自動生成する</li>
         </ul>
-        <p style="margin-top:12px; font-size:13px;"><a href="neon-setup-guide.html" style="color:#2563a8; font-weight:700;">→ アカウント作成〜コネクション文字列取得の詳細手順はこちら</a></p>
       </div>
 
       <div class="tech-block">
@@ -287,7 +286,6 @@
           <li>デプロイ失敗時はVercelのビルドログをコピーしてClaude Codeに貼り付けるとエラー原因を特定できる</li>
           <li>エラー発生時はブラウザの<code>Ctrl+Shift+I</code>でコンソールを開き、ログをClaude Codeに渡す</li>
         </ul>
-        <p style="margin-top:12px; font-size:13px;"><a href="vercel-deploy-guide.html" style="color:#2563a8; font-weight:700;">→ 詳細なステップバイステップ手順はこちら</a></p>
       </div>
 
     </div>

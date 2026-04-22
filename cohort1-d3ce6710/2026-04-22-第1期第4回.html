@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VIBECODING LAB 第1期 第4回 セッションレポート</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Hiragino Sans', 'Yu Gothic UI', sans-serif; background: #f4f7fb; color: #1a1a2e; font-size: 14px; line-height: 1.7; }
+
+  /* ── ヘッダー ── */
+  header {
+    background: linear-gradient(135deg, #1a3a5c 0%, #2563a8 100%);
+    color: white; padding: 28px 48px; display: flex; justify-content: space-between; align-items: center;
+  }
+  header .logo { font-size: 20px; font-weight: 700; letter-spacing: 2px; }
+  header .back { font-size: 12px; color: rgba(255,255,255,0.75); text-decoration: none; }
+  header .back:hover { color: white; }
+
+  /* ── タイトルブロック ── */
+  .title-block {
+    background: white; border-bottom: 1px solid #e0e7f0;
+    padding: 36px 48px 28px;
+  }
+  .title-block .label { font-size: 12px; color: #2563a8; font-weight: 700; letter-spacing: 2px; }
+  .title-block h1 { font-size: 28px; font-weight: 700; margin: 8px 0 4px; color: #1a3a5c; }
+  .title-block .date { font-size: 14px; color: #666; }
+
+  /* ── レイアウト ── */
+  .container { max-width: 900px; margin: 0 auto; padding: 32px 24px 64px; }
+
+  /* ── セクション共通 ── */
+  .section {
+    background: white; border-radius: 10px; margin-bottom: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06); overflow: hidden;
+  }
+  .section-header {
+    background: #1a3a5c; color: white;
+    padding: 12px 24px; font-size: 14px; font-weight: 700; letter-spacing: 1px;
+  }
+  .section-body { padding: 24px; }
+
+  /* ── 達成グリッド ── */
+  .achievement-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .achievement-item {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; color: #334155;
+  }
+  .ach-dot {
+    width: 20px; height: 20px; border-radius: 50%;
+    background: #e8f5e9; border: 1.5px solid #a5d6a7;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+
+  /* ── 基本情報テーブル ── */
+  .info-table { width: 100%; border-collapse: collapse; }
+  .info-table th, .info-table td { padding: 10px 14px; border: 1px solid #e0e7f0; font-size: 13px; }
+  .info-table th { background: #f4f7fb; font-weight: 700; color: #1a3a5c; width: 160px; }
+
+  /* ── 参加者テーブル ── */
+  .participant-table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+  .participant-table th { background: #1a3a5c; color: white; padding: 10px 14px; font-size: 13px; text-align: left; }
+  .participant-table td { padding: 10px 14px; border-bottom: 1px solid #e0e7f0; font-size: 13px; }
+  .participant-table tr:last-child td { border-bottom: none; }
+
+  /* ── 個人ごとの課題 ── */
+  .person-block { border-left: 4px solid #2563a8; padding: 12px 16px; margin-bottom: 16px; background: #f8fafc; border-radius: 0 6px 6px 0; }
+  .person-block:last-child { margin-bottom: 0; }
+  .person-name { font-weight: 700; color: #1a3a5c; margin-bottom: 6px; font-size: 14px; }
+  .person-block ul { padding-left: 18px; }
+  .person-block li { margin-bottom: 4px; }
+
+  /* ── 技術内容 ── */
+  .tech-block { border-left: 4px solid #2563a8; padding: 12px 16px; margin-bottom: 20px; }
+  .tech-block:last-child { margin-bottom: 0; }
+  .tech-title { font-weight: 700; color: #1a3a5c; margin-bottom: 6px; font-size: 14px; }
+  .tech-why { background: #fffbeb; border: 1px solid #fde68a; border-radius: 6px; padding: 8px 12px; margin: 8px 0; font-size: 12px; color: #92400e; }
+  .tech-block ul { padding-left: 18px; }
+  .tech-block li { margin-bottom: 4px; }
+
+  /* ── Q&A ── */
+  .qa-item { margin-bottom: 18px; }
+  .qa-item:last-child { margin-bottom: 0; }
+  .qa-q { color: #2563a8; font-weight: 700; margin-bottom: 4px; }
+  .qa-a { padding-left: 16px; }
+
+  /* ── ロードマップテーブル ── */
+  .roadmap-table { width: 100%; border-collapse: collapse; }
+  .roadmap-table th { background: #1a3a5c; color: white; padding: 10px 14px; font-size: 13px; text-align: left; white-space: nowrap; }
+  .roadmap-table td { padding: 10px 14px; border-bottom: 1px solid #e0e7f0; font-size: 13px; }
+  .roadmap-table td:first-child, .roadmap-table td:nth-child(2), .roadmap-table td:last-child { white-space: nowrap; }
+  .roadmap-table tr:last-child td { border-bottom: none; }
+  .roadmap-current { background: #f0fdf4 !important; font-weight: 700; }
+  .roadmap-current td { color: #166534; }
+  .check { color: #16a34a; font-weight: 700; }
+
+  /* ── フッター ── */
+  footer { background: #1a3a5c; color: rgba(255,255,255,0.7); text-align: center; padding: 24px; font-size: 12px; margin-top: 0; }
+
+  /* ── アイコン共通 ── */
+  .icon { display: inline-block; vertical-align: middle; }
+  .section-icon { width: 16px; height: 16px; margin-right: 8px; vertical-align: -3px; stroke: white; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .back-icon { width: 12px; height: 12px; vertical-align: -1px; margin-right: 2px; stroke: rgba(255,255,255,0.75); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .check-icon { width: 13px; height: 13px; vertical-align: -2px; margin-right: 6px; stroke: #2e7d32; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+  .roadmap-check { width: 15px; height: 15px; vertical-align: -3px; stroke: #16a34a; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+  .why-icon { width: 13px; height: 13px; vertical-align: -2px; margin-right: 5px; stroke: #92400e; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* ── モバイル対応 ── */
+  @media (max-width: 640px) {
+    header { padding: 16px 20px; }
+    header .logo { font-size: 16px; }
+    header .back { font-size: 11px; }
+
+    .title-block { padding: 20px; }
+    .title-block h1 { font-size: 20px; }
+
+    .section-header { padding: 10px 16px; font-size: 13px; }
+    .section-body { padding: 16px; }
+
+    .info-table, .participant-table { display: block; overflow-x: auto; }
+    .info-table th { width: auto; min-width: 80px; }
+    .info-table th, .info-table td,
+    .participant-table th, .participant-table td { white-space: normal; min-width: 80px; font-size: 12px; padding: 8px 10px; }
+
+    .roadmap-table thead { display: none; }
+    .roadmap-table, .roadmap-table tbody, .roadmap-table tr { display: block; width: 100%; }
+    .roadmap-table tr { display: flex; align-items: baseline; gap: 8px; border-bottom: 1px solid #e0e7f0; padding: 7px 4px; }
+    .roadmap-table tr:last-child { border-bottom: none; }
+    .roadmap-table tr.roadmap-current { background: #f0fdf4; border-radius: 6px; padding: 7px 8px; }
+    .roadmap-table td { display: block; border: none; padding: 0; line-height: 1.4; }
+    .roadmap-table td:first-child { flex: 0 0 40px; font-weight: 700; color: #1a3a5c; font-size: 12px; }
+    .roadmap-table td:nth-child(2) { flex: 0 0 50px; color: #888; font-size: 11px; }
+    .roadmap-table td:nth-child(3) { flex: 1; color: #333; font-size: 12px; }
+    .roadmap-table td:last-child { flex: 0 0 auto; font-size: 11px; }
+
+    .achievement-list { grid-template-columns: repeat(2, 1fr); }
+    .person-block { padding: 10px 12px; }
+    .tech-block { padding: 10px 12px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">VIBECODING LAB</div>
+  <a href="index.html" class="back"><svg class="back-icon" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>セッション一覧に戻る</a>
+</header>
+
+<div class="title-block">
+  <div class="label">SESSION REPORT — 第1期</div>
+  <h1>第4回：スキル・仕様書駆動開発・認証認可・統合ログイン基盤設計</h1>
+  <div class="date">2026年4月22日（水）19:58〜</div>
+</div>
+
+<div class="container">
+
+  <!-- 今回の達成 -->
+  <div class="section">
+    <div class="section-header"><svg class="section-icon" viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>今回の達成</div>
+    <div class="section-body">
+      <div class="achievement-list">
+        <div class="achievement-item"><div class="ach-dot"><svg class="check-icon" style="margin:0" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>備品管理システムを約1時間で試作完成</div>
+        <div class="achievement-item"><div class="ach-dot"><svg class="check-icon" style="margin:0" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>フロントエンドデザインスキルのインストール・起動成功</div>
+        <div class="achievement-item"><div class="ach-dot"><svg class="check-icon" style="margin:0" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>コンテキストエンジニアリングの概念習得</div>
+        <div class="achievement-item"><div class="ach-dot"><svg class="check-icon" style="margin:0" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>仕様書駆動開発フローの確立</div>
+        <div class="achievement-item"><div class="ach-dot"><svg class="check-icon" style="margin:0" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>認証・認可の概念習得</div>
+        <div class="achievement-item"><div class="ach-dot"><svg class="check-icon" style="margin:0" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>統合ログイン基盤の方針決定・各社アプリ仕様書作成開始</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 会議基本情報 -->
+  <div class="section">
+    <div class="section-header">1. 会議基本情報</div>
+    <div class="section-body">
+      <table class="info-table">
+        <tr><th>日時</th><td>2026年4月22日（水）19:58〜</td></tr>
+        <tr><th>形式</th><td>オンライン（Google Meet）</td></tr>
+        <tr><th>次回予定</th><td>3週間後（約5月13日）オンライン ／ 第5回：各社アプリ開発</td></tr>
+      </table>
+
+      <table class="participant-table">
+        <thead>
+          <tr><th>氏名</th><th>所属・会社</th><th>開発目標</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>小池田康徳</td>
+            <td>株式会社北都鉄工</td>
+            <td>備品管理システム・営業日報アプリ</td>
+          </tr>
+          <tr>
+            <td>田中翔</td>
+            <td>株式会社北日本テクノス</td>
+            <td>労務管理システム</td>
+          </tr>
+          <tr>
+            <td>文田浩輔</td>
+            <td>株式会社小林製作所</td>
+            <td>名刺スキャン受付システム・社内ポータル</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 2. 会議サマリー -->
+  <div class="section">
+    <div class="section-header">2. 会議サマリー</div>
+    <div class="section-body">
+      <p>第4回は、第3回までの基礎知識習得フェーズを終え、<strong>実装フェーズへの移行</strong>を宣言する節目のセッションとなった。</p>
+      <p style="margin-top:10px;">冒頭では小池田康徳氏がプロンプト投入から約1時間で試作した備品管理システムを披露。ログイン・在庫管理・持ち出し履歴など実用的な機能を備えており、第3回で学んだリレーショナルDBの概念を実地で体験した成果が確認された。</p>
+      <p style="margin-top:10px;">続いてAnthropicの公式スキル「フロントエンドデザイン」を全員でインストール・起動し、ダッシュボードのデザインをモダンに一新。AIに特定の専門性を持たせる<strong>コンテキストエンジニアリング</strong>の概念と、自社フォーマットをスキルとして再利用する手法を習得した。</p>
+      <p style="margin-top:10px;">後半はフルスタックアプリ開発の共通基盤を確立。Claude（チャット版）で仕様書を固めてからClaude Codeに渡す<strong>仕様書駆動開発フロー</strong>を定め、認証・認可の概念を整理した上で、各アプリを統合するログイン基盤の設計方針を合意した。残り期間（〜6月）で各社が業務アプリを完成させるロードマップも確認された。</p>
+    </div>
+  </div>
+
+  <!-- 3. 講義・技術内容 -->
+  <div class="section">
+    <div class="section-header">3. 講義・技術内容</div>
+    <div class="section-body">
+
+      <div class="tech-block">
+        <div class="tech-title">① 備品管理システム試作の発表（小池田康徳）</div>
+        <div class="tech-why"><svg class="why-icon" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>なぜ重要か：第3回の課題（DBとデプロイ）が定着したことを示す初の実証成果。受講者がプロンプト1本で実用的なシステムを作れるレベルに達した証明となった。</div>
+        <ul>
+          <li>役員がGeminiで試みたがDB接続で詰まったシステムを、自ら学んだ内容で独力完成</li>
+          <li>機能：ログイン（マスター/一般ユーザー）、在庫管理、アラート、持ち出し履歴（時系列・誰が/何を/何個）、持ち出し予約登録</li>
+          <li>チェックアウトレコードが品目IDと従業員IDで紐づく → リレーショナルDBの概念を実地で体験</li>
+          <li>セキュリティ：<code>.gitignore</code> + <code>.env.local</code> でNeon DB URLを管理。GitHubリポジトリのPrivateモード確認も推奨</li>
+          <li>Claudeにディレクトリを掴ませて「セキュリティ的に大丈夫か」と確認する習慣を推奨（ハードコードされたAPIキーがないかのチェック）</li>
+        </ul>
+      </div>
+
+      <div class="tech-block">
+        <div class="tech-title">② スキルとコンテキストエンジニアリング</div>
+        <div class="tech-why"><svg class="why-icon" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>なぜ重要か：AIに特定の専門性を持たせることで成果物の品質が飛躍的に向上する。自社フォーマットをスキル化すれば毎回同じ指示を書く手間が省け、出力が安定する。</div>
+        <ul>
+          <li><strong>スキル</strong>：AIに特定の専門能力を持たせる仕組み。Anthropic公式の「フロントエンドデザイン」スキルをインストールして起動することでダッシュボードのデザインがモダンに一新された</li>
+          <li>スキルは自作も可能 → 自社デザインフォーマット・PowerPointフォーマット等をスキルとして登録し再利用できる（「スキルクリエイター」スキルを使用）</li>
+          <li><strong>コンテキストエンジニアリング</strong>：AIに特定の文脈を持たせて成果物を出させる技術の総称。スキルもその一形態</li>
+          <li>スキルを強制起動させるには、有効化の手順が必要であることを小池田氏が実地で発見</li>
+        </ul>
+      </div>
+
+      <div class="tech-block">
+        <div class="tech-title">③ CLAUDE.md によるグローバル・プロジェクト設定</div>
+        <div class="tech-why"><svg class="why-icon" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>なぜ重要か：毎回AIに同じ前提を説明する手間を省ける。プロジェクト固有のルール（技術スタック・禁止事項等）を一度書けばAIが常にそのコンテキストで作業を開始する。</div>
+        <ul>
+          <li><code>~/.claude/CLAUDE.md</code>（グローバル）：全プロジェクトに適用される共通設定</li>
+          <li>プロジェクト内の <code>CLAUDE.md</code>：そのプロジェクト固有のルール。AIは起動時に必ず読み込む</li>
+          <li>統合ポータル運用時は親フォルダの <code>CLAUDE.md</code> に「不要なプロジェクトのソースを読み込まないルール」を記述することでコンテキスト圧迫を防げる</li>
+        </ul>
+      </div>
+
+      <div class="tech-block">
+        <div class="tech-title">④ 仕様書駆動開発フローの確立</div>
+        <div class="tech-why"><svg class="why-icon" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>なぜ重要か：仕様を固めずに開発すると手戻りが大きくなる。Claude（チャット版）で要件を対話的に詰めてから Claude Code に渡すことで、一発で品質の高いアプリが完成する。</div>
+        <ul>
+          <li><strong>推奨フロー</strong>：① Claudeチャット（Opus）で仕様書（Markdown）を作成 → ② 仕様書をClaude Codeに読み込ませてタスクステップ生成 → ③ サブエージェント方式で並行開発</li>
+          <li>Claudeは不明点を都度確認しながら仕様を固めるため、ChatGPTやGeminiが勝手に進める傾向があるのに対して、仕様を固める工程では特に有効</li>
+          <li><strong>共通技術スタック</strong>：Next.js（フルスタック）/ Neon（PostgreSQL）/ Vercel（デプロイ）/ Anthropic API / Cloudflare R2（画像・PDF）/ Vercel Cron Jobs（スケジュール実行）</li>
+          <li>サブエージェント方式はトークン消費が激しくなるため、Pro Planでは上限に達しやすい。開発時はMax Planへの移行を推奨</li>
+        </ul>
+      </div>
+
+      <div class="tech-block">
+        <div class="tech-title">⑤ 認証（Authentication）・認可（Authorization）の概念</div>
+        <div class="tech-why"><svg class="why-icon" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>なぜ重要か：業務アプリに必須の機能。概念を理解しておくことで、AIへの指示の精度が上がり、権限設計のミスを防げる。</div>
+        <ul>
+          <li><strong>認証（Authentication）</strong>：「あなたであることの確認」＝ ログイン。メールアドレス＋パスワード等で本人を証明する</li>
+          <li><strong>認可（Authorization）</strong>：「何ができるか」＝ 管理者権限・一般権限など、ログイン済みユーザーに対してできる操作の範囲を制御する</li>
+          <li>Google OAuth（Googleアカウントでログイン）は、会社全員がGoogleアカウントを持っている場合に有効。そうでない場合はメール＋パスワード方式が安全</li>
+          <li>各アプリが個別にログインを持つのは非効率 → <strong>統合ログイン基盤</strong>を1つ構築し、配下に各アプリを配置する方針に決定</li>
+        </ul>
+      </div>
+
+      <div class="tech-block">
+        <div class="tech-title">⑥ コスト・料金体系とリソースの使い回し</div>
+        <div class="tech-why"><svg class="why-icon" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>なぜ重要か：開発を続けるには費用感を把握しておく必要がある。多くのコストはDB・デプロイの2点に集約され、適切に管理すれば業務アプリ運用はほぼ無料で維持できる。</div>
+        <ul>
+          <li><strong>コスト発生源の2大要素</strong>：Neon（データ量×アクセス回数）と Vercel（デプロイ）。業務用途の範囲内はほぼ無料</li>
+          <li>画像・PDF・動画など重いデータはNeonではなくCloudflare R2などの外部ストレージに保存するのがコスト最適</li>
+          <li>NeonのDB URL・AnthropicのAPIキーなど共通リソースはプロジェクトごとに新規発行せず使い回すと管理が楽になる</li>
+          <li>Claude Max Planへの移行：Pro Planはサブエージェント方式・Opus使用でトークン上限に達しやすい。開発フェーズはMax Plan推奨（今回2名が上限到達）</li>
+          <li>追加クレジット購入（上限到達時に自動消費）の選択肢もあり。使用頻度によってはMax Planより安価になる場合がある</li>
+        </ul>
+      </div>
+
+      <div class="tech-block">
+        <div class="tech-title">⑦ 既存システム連携の自動化（Python・Playwright）</div>
+        <div class="tech-why"><svg class="why-icon" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>なぜ重要か：新規アプリを作るだけでなく、既存の業務システムとの連携を自動化できると、RPA的な価値を低コストで実現できる。</div>
+        <ul>
+          <li><strong>課題例（田中翔）</strong>：NIコラボ360からCSV出力 → 手動で不要列を削除 → 生産管理システムへインポート、という手作業の自動化</li>
+          <li><strong>提案解決策</strong>：ClaudeでWebアプリを作り所定のCSV形式で出力 → Pythonで突合・自動インポート</li>
+          <li><strong>Playwright</strong>：ブラウザ操作を自動化するOSSフレームワーク。Claudeと組み合わせることで既存Webアプリの操作も自動化できる</li>
+          <li>Python + Playwright + Windowsタスクスケジューラを組み合わせることで、CSVダウンロードからクラウドストレージへのアップロードまでの一連処理を自動化できる</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 4. 主要ディスカッション -->
+  <div class="section">
+    <div class="section-header">4. 主要ディスカッション（Q&A）</div>
+    <div class="section-body">
+
+      <div class="qa-item">
+        <div class="qa-q">Q. VS CodeでClaudeを開こうとするとログインが外れてAPIキーエラーが発生する。（田中翔）</div>
+        <div class="qa-a">ログインが外れた状態のため、「ログイン」を実行してサブスクリプションと紐付けることで解決できる。APIキーを手動で入力する画面が表示された場合は、ログイン操作を選ぶ。</div>
+      </div>
+
+      <div class="qa-item">
+        <div class="qa-q">Q. 認証にGoogleアカウントのOAuth認証を使えるか？（小池田康徳）</div>
+        <div class="qa-a">実装自体は可能。ただし、会社全員がGoogleアカウントを持っている場合のみ有効。そうでない場合はログインできないユーザーが出るため、メールアドレス＋パスワード方式を基本とすることを推奨。</div>
+      </div>
+
+      <div class="qa-item">
+        <div class="qa-q">Q. 日報アプリで週次レポートを自動生成する際、Vercel Cron Jobsを使って問題ないか？（小池田康徳）</div>
+        <div class="qa-a">デプロイ済みアプリのスケジュール実行にはVercel Cron Jobsを使う想定で問題ない。無料プランでは1日1回まで実行可能。それ以上の頻度が必要な場合は有料プランへのアップグレードを検討する。</div>
+      </div>
+
+      <div class="qa-item">
+        <div class="qa-q">Q. 日報に写真を添付する場合、画像ストレージはどれを使うべきか？（小池田康徳）</div>
+        <div class="qa-a">Cloudflare R2の使用が最も簡単でおすすめ。画像・PDFどちらにも対応しており、コストも安価。コストを抑えるためにも、ファイル類はNeonに保存せず外部ストレージに置くのが鉄則。</div>
+      </div>
+
+      <div class="qa-item">
+        <div class="qa-q">Q. 統合ポータル配下に複数アプリのフォルダーを置くとClaudeのコンテキストが圧迫されないか？（文田浩輔）</div>
+        <div class="qa-a">懸念は正しい。対策として親フォルダの <code>CLAUDE.md</code> に「現在作業中のプロジェクト以外のソースを読み込まないルール」を記述することでコンテキストの圧迫を防げる可能性がある。ディレクトリ設計はClaude Codeと相談しながら決める。</div>
+      </div>
+
+      <div class="qa-item">
+        <div class="qa-q">Q. ChatGPTやGeminiとClaudeの違いは何か？</div>
+        <div class="qa-a">ChatGPTやGeminiは指示に対して積極的に進める傾向があるのに対し、Claudeは不明点や確認事項を都度ユーザーに尋ねる慎重な設計になっている。仕様を固める上流工程ではClaudeの慎重さが品質向上に直結する。</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 5. 今後の開発ロードマップ -->
+  <div class="section">
+    <div class="section-header">5. 今後の開発ロードマップ（全8回）</div>
+    <div class="section-body">
+      <table class="roadmap-table">
+        <thead>
+          <tr><th>回</th><th>日程</th><th>テーマ</th><th>状態</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>第1回</td>
+            <td>4月1日</td>
+            <td>VIBECODINGとは／Webアプリ三層構造／Claude Code環境構築／GitHub連携／ToDoアプリ作成</td>
+            <td><svg class="roadmap-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td>
+          </tr>
+          <tr>
+            <td>第2回</td>
+            <td>4月8日</td>
+            <td>フロントエンドUI強化（トースト・モーダル・確認ダイアログ）／Gitバージョン管理／Anthropic API連携</td>
+            <td><svg class="roadmap-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td>
+          </tr>
+          <tr>
+            <td>第3回</td>
+            <td>4月15日</td>
+            <td>Neonデータベース接続・リレーショナルDB設計／CRUD操作／Vercel環境変数設定・デプロイ</td>
+            <td><svg class="roadmap-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td>
+          </tr>
+          <tr class="roadmap-current">
+            <td>第4回</td>
+            <td>4月22日</td>
+            <td>スキル・コンテキストエンジニアリング／仕様書駆動開発フロー確立／認証認可／統合ログイン基盤設計</td>
+            <td><svg class="roadmap-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></td>
+          </tr>
+          <tr>
+            <td>第5回</td>
+            <td>約5月13日</td>
+            <td>各社アプリ開発（統合ログイン基盤構築・各アプリ実装開始）</td>
+            <td>次回</td>
+          </tr>
+          <tr>
+            <td>第6回</td>
+            <td>—</td>
+            <td>各社ごとの自社アプリ開発</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>第7回</td>
+            <td>—</td>
+            <td>各社ごとの自社アプリ開発</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>第8回</td>
+            <td>6月4日</td>
+            <td>最終成果報告</td>
+            <td>—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 6. その他 -->
+  <div class="section">
+    <div class="section-header">6. その他</div>
+    <div class="section-body" style="font-size:13px;">
+      <p>今回で第1〜4回の基礎知識習得フェーズが完了し、AIに指示を出すだけでWebアプリを作れる基盤が整った。残り4回（〜6月）で各社が統合ログイン基盤を軸に業務アプリを完成させるフェーズに移行する。参加者には3週間の間隔を活かして知識を定着させ、積極的に仕様書作成・開発を進めることが促された。</p>
+      <p style="margin-top:10px;">なお、AnthropicがMythosというモデルを開発したがサイバー攻撃リスクが高すぎるためリリースを取り下げたという情報も共有され、AIの高い能力がもたらす潜在的なセキュリティリスクへの理解を深めた。</p>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  記録：岡田雄太 ／ 作成日：2026年4月22日 ／ VIBECODING LAB
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VIBECODING LAB 第2期 第2回 セッションレポート</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Hiragino Sans', 'Yu Gothic UI', sans-serif; background: #f4f7fb; color: #1a1a2e; font-size: 14px; line-height: 1.7; }
+
+  /* ── ヘッダー ── */
+  header {
+    background: linear-gradient(135deg, #1a3a5c 0%, #2563a8 100%);
+    color: white; padding: 28px 48px; display: flex; justify-content: space-between; align-items: center;
+  }
+  header .logo { font-size: 20px; font-weight: 700; letter-spacing: 2px; }
+  header .back { font-size: 12px; color: rgba(255,255,255,0.75); text-decoration: none; }
+  header .back:hover { color: white; }
+
+  /* ── タイトルブロック ── */
+  .title-block {
+    background: white; border-bottom: 1px solid #e0e7f0;
+    padding: 36px 48px 28px;
+  }
+  .title-block .label { font-size: 12px; color: #2563a8; font-weight: 700; letter-spacing: 2px; }
+  .title-block h1 { font-size: 28px; font-weight: 700; margin: 8px 0 4px; color: #1a3a5c; }
+  .title-block .date { font-size: 14px; color: #666; }
+
+  /* ── レイアウト ── */
+  .container { max-width: 900px; margin: 0 auto; padding: 32px 24px 64px; }
+
+  /* ── セクション共通 ── */
+  .section {
+    background: white; border-radius: 10px; margin-bottom: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06); overflow: hidden;
+  }
+  .section-header {
+    background: #1a3a5c; color: white;
+    padding: 12px 24px; font-size: 14px; font-weight: 700; letter-spacing: 1px;
+  }
+  .section-body { padding: 24px; }
+
+  /* ── 達成グリッド ── */
+  .achievement-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .achievement-item {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; color: #334155;
+  }
+  .ach-dot {
+    width: 20px; height: 20px; border-radius: 50%;
+    background: #e8f5e9; border: 1.5px solid #a5d6a7;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+
+  /* ── 基本情報テーブル ── */
+  .info-table { width: 100%; border-collapse: collapse; }
+  .info-table th, .info-table td { padding: 10px 14px; border: 1px solid #e0e7f0; font-size: 13px; }
+  .info-table th { background: #f4f7fb; font-weight: 700; color: #1a3a5c; width: 160px; }
+
+  /* ── 参加者テーブル ── */
+  .participant-table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+  .participant-table th { background: #1a3a5c; color: white; padding: 10px 14px; font-size: 13px; text-align: left; }
+  .participant-table td { padding: 10px 14px; border-bottom: 1px solid #e0e7f0; font-size: 13px; }
+  .participant-table tr:last-child td { border-bottom: none; }
+
+  /* ── 個人ごとのアクション ── */
+  .person-block { border-left: 4px solid #2563a8; padding: 12px 16px; margin-bottom: 16px; background: #f8fafc; border-radius: 0 6px 6px 0; }
+  .person-block:last-child { margin-bottom: 0; }
+  .person-name { font-weight: 700; color: #1a3a5c; margin-bottom: 6px; font-size: 14px; }
+  .person-block ul { padding-left: 18px; }
+  .person-block li { margin-bottom: 4px; }
+
+  /* ── 技術内容 ── */
+  .tech-block { border-left: 4px solid #2563a8; padding: 12px 16px; margin-bottom: 20px; }
+  .tech-block:last-child { margin-bottom: 0; }
+  .tech-title { font-weight: 700; color: #1a3a5c; margin-bottom: 6px; font-size: 14px; }
+  .tech-why { background: #fffbeb; border: 1px solid #fde68a; border-radius: 6px; padding: 8px 12px; margin: 8px 0; font-size: 12px; color: #92400e; }
+  .tech-block ul { padding-left: 18px; }
+  .tech-block li { margin-bottom: 4px; }
+
+  /* ── Q&A ── */
+  .qa-item { margin-bottom: 18px; }
+  .qa-item:last-child { margin-bottom: 0; }
+  .qa-q { color: #2563a8; font-weight: 700; margin-bottom: 4px; }
+  .qa-a { padding-left: 16px; }
+
+  /* ── ロードマップテーブル ── */
+  .roadmap-table { width: 100%; border-collapse: collapse; }
+  .roadmap-table th { background: #1a3a5c; color: white; padding: 10px 14px; font-size: 13px; text-align: left; white-space: nowrap; }
+  .roadmap-table td { padding: 10px 14px; border-bottom: 1px solid #e0e7f0; font-size: 13px; }
+  .roadmap-table td:first-child, .roadmap-table td:nth-child(2), .roadmap-table td:last-child { white-space: nowrap; }
+  .roadmap-table tr:last-child td { border-bottom: none; }
+  .roadmap-done { background: #f8fafc; color: #888; }
+  .roadmap-done td { color: #888; }
+  .roadmap-current { background: #f0fdf4 !important; font-weight: 700; }
+  .roadmap-current td { color: #166534; }
+
+  /* ── フッター ── */
+  footer { background: #1a3a5c; color: rgba(255,255,255,0.7); text-align: center; padding: 24px; font-size: 12px; margin-top: 0; }
+
+  /* ── アイコン共通 ── */
+  .icon { display: inline-block; vertical-align: middle; }
+  .section-icon { width: 16px; height: 16px; margin-right: 8px; vertical-align: -3px; stroke: white; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .back-icon { width: 12px; height: 12px; vertical-align: -1px; margin-right: 2px; stroke: rgba(255,255,255,0.75); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .check-icon { width: 13px; height: 13px; vertical-align: -2px; margin-right: 6px; stroke: #2e7d32; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+  .why-icon { width: 13px; height: 13px; vertical-align: -2px; margin-right: 5px; stroke: #92400e; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  .tag { display: inline-block; background: #dbeafe; color: #1e40af; border-radius: 4px; padding: 1px 8px; font-size: 11px; font-weight: 700; margin-right: 4px; }
+
+  /* ── 豆知識 ── */
+  .tips-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .tip-card {
+    background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px;
+    padding: 14px 16px; display: flex; gap: 12px; align-items: flex-start;
+  }
+  .tip-emoji { font-size: 22px; line-height: 1; flex-shrink: 0; }
+  .tip-title { font-weight: 700; color: #92400e; font-size: 13px; margin-bottom: 4px; }
+  .tip-body { font-size: 12px; color: #78350f; line-height: 1.6; }
+  @media (max-width: 640px) {
+    .tips-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ── モバイル対応 ── */
+  @media (max-width: 640px) {
+    header { padding: 16px 20px; }
+    header .logo { font-size: 16px; }
+    header .back { font-size: 11px; }
+
+    .title-block { padding: 20px; }
+    .title-block h1 { font-size: 20px; }
+
+    .section-header { padding: 10px 16px; font-size: 13px; }
+    .section-body { padding: 16px; }
+
+    .info-table, .participant-table { display: block; overflow-x: auto; }
+    .info-table th { width: auto; min-width: 80px; }
+    .info-table th, .info-table td,
+    .participant-table th, .participant-table td { white-space: normal; min-width: 80px; font-size: 12px; padding: 8px 10px; }
+
+    .roadmap-table thead { display: none; }
+    .roadmap-table, .roadmap-table tbody, .roadmap-table tr { display: block; width: 100%; }
+    .roadmap-table tr { display: flex; align-items: baseline; gap: 8px; border-bottom: 1px solid #e0e7f0; padding: 7px 4px; }
+    .roadmap-table tr:last-child { border-bottom: none; }
+    .roadmap-table tr.roadmap-current { background: #f0fdf4; border-radius: 6px; padding: 7px 8px; }
+    .roadmap-table td { display: block; border: none; padding: 0; line-height: 1.4; }
+    .roadmap-table td:first-child { flex: 0 0 40px; font-weight: 700; color: #1a3a5c; font-size: 12px; }
+    .roadmap-table td:nth-child(2) { flex: 0 0 50px; color: #888; font-size: 11px; }
+    .roadmap-table td:nth-child(3) { flex: 1; color: #333; font-size: 12px; }
+    .roadmap-table td:last-child { flex: 0 0 auto; font-size: 11px; }
+
+    .achievement-list { grid-template-columns: repeat(2, 1fr); }
+    .person-block { padding: 10px 12px; }
+    .tech-block { padding: 10px 12px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">VIBECODING LAB</div>
+  <a href="index.html" class="back"><svg class="back-icon" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>セッション一覧に戻る</a>
+</header>
+
+<div class="title-block">
+  <div class="label">SESSION REPORT — 第2期</div>
+  <h1>第2回：UIコンポーネント実装・Claude Code動作モード・API連携・AI自動カテゴリー分類</h1>
+  <div class="date">2026年4月30日（木）19:54〜22:30（約2時間38分）</div>
+</div>
+
+<div class="container">
+
+  <!-- 今回の達成 -->
+  <div class="section">
+    <div class="section-header"><svg class="section-icon" viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>今回の達成</div>
+    <div class="section-body">
+      <div class="achievement-list">
+        <div class="achievement-item"><div class="ach-dot"><svg class="check-icon" style="margin:0" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>UIコンポーネント 6種実装</div>
+        <div class="achievement-item"><div class="ach-dot"><svg class="check-icon" style="margin:0" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Anthropic API連携</div>
+        <div class="achievement-item"><div class="ach-dot"><svg class="check-icon" style="margin:0" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>AI自動カテゴリー分類機能</div>
+        <div class="achievement-item"><div class="ach-dot"><svg class="check-icon" style="margin:0" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>バージョン管理・復元手順</div>
+        <div class="achievement-item"><div class="ach-dot"><svg class="check-icon" style="margin:0" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>APIキーのセキュアな管理</div>
+        <div class="achievement-item"><div class="ach-dot"><svg class="check-icon" style="margin:0" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>SVGイラスト生成</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 会議基本情報 -->
+  <div class="section">
+    <div class="section-header">1. 会議基本情報</div>
+    <div class="section-body">
+      <table class="info-table">
+        <tr><th>日時</th><td>2026年4月30日（木）19:54〜22:30（約2時間38分）</td></tr>
+        <tr><th>形式</th><td>オンライン（Google Meet）</td></tr>
+        <tr><th>次回予定</th><td>2026年5月11日（日） ／ 第3回：データベース接続・デプロイ</td></tr>
+      </table>
+
+      <table class="participant-table" style="margin-top:16px;">
+        <thead>
+          <tr><th>氏名</th><th>所属・会社</th><th>開発目標</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>住奥美穂</td>
+            <td>TENJO KANAZAWA</td>
+            <td>顧客情報の一元管理・事務作業の自動化</td>
+          </tr>
+          <tr>
+            <td>石橋隆太郎</td>
+            <td>有限会社三吉商店</td>
+            <td>FAX受注管理のデジタル化・省人化</td>
+          </tr>
+          <tr>
+            <td>高橋辰治</td>
+            <td>株式会社有川製作所</td>
+            <td>基幹システムのAI連携・業務効率化</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 2. 会議サマリー -->
+  <div class="section">
+    <div class="section-header">2. 会議サマリー</div>
+    <div class="section-body">
+      <p>第1回で作成したToDoアプリをベースに、UIコンポーネントの導入とAnthropicAPIを活用したAI機能の実装をバイブコーディングで体験した。</p>
+      <p style="margin-top:10px;">前半はClaude Codeのターミナル操作のメリット再確認、GitHubのバージョン管理・復元方法（Gitリバートと <code>/rewind</code> コマンドの使い分け）</p>
+      <p style="margin-top:10px;">後半はToDoアプリにトースト通知・プルダウン・アコーディオン・モーダル・確認ダイアログ・バッジを実装し、さらにAnthropicAPIと接続してタスク登録時にClaudeが自動でカテゴリーを分類する機能を完成させた。<code>.env</code>ファイルを使ったAPIキーの安全な管理方法、Claude Codeの動作モード切り替え（プランモード・バイパスパーミッションモード）も習得した。</p>
+    </div>
+  </div>
+
+  <!-- 3. 講義・技術内容 -->
+  <div class="section">
+    <div class="section-header">3. 講義・技術内容</div>
+    <div class="section-body">
+
+      <div class="tech-block">
+        <div class="tech-title">① Claude Codeとターミナル操作の優位性</div>
+        <div class="tech-why"><svg class="why-icon" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>なぜ重要か：ブラウザのチャットと違い、PCのファイルを直接操作できる「手足を持った相棒」。GoogleやExcelとの連携も同じスキルで実現できる汎用性がある。</div>
+        <ul>
+          <li>ターミナル経由でファイルをダイレクトに作成・編集・実行できる</li>
+          <li>将来的にGoogleドライブ・スプレッドシート・メールなどの自動化にも同じ知識が活きる</li>
+          <li>住奥美穂氏がMCP（モデルコンテキストプロトコル）経由でGoogleドライブ接続に成功</li>
+        </ul>
+      </div>
+
+      <div class="tech-block">
+        <div class="tech-title">② バージョン管理と復元方法</div>
+        <div class="tech-why"><svg class="why-icon" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>なぜ重要か：AIがコードを大きく変更する際に「戻せる」安心感があることで、大胆に試せるようになる。失敗を恐れない開発スタンスの土台。</div>
+        <ul>
+          <li><strong>コミット</strong> = セーブポイント、<strong>プッシュ</strong> = GitHubへの送り込み</li>
+          <li><strong>Gitリバート</strong>（コミットIDを指定）：昨日以前の状態に戻したいとき</li>
+          <li><strong>/rewindコマンド</strong>：チャット履歴内で直前の状態に戻したいとき</li>
+          <li>GitHubリポジトリは必ず<strong>プライベート設定</strong>で作成すること</li>
+        </ul>
+      </div>
+
+      <div class="tech-block">
+        <div class="tech-title">③ UIコンポーネントの実装（ライブコーディング）</div>
+        <div class="tech-why"><svg class="why-icon" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>なぜ重要か：コンポーネントの名前を知るだけでAIへの指示精度が飛躍的に上がる。語彙がそのままAIへの指示力になる。</div>
+        <ul>
+          <li><strong>トースト通知</strong>：タスク追加時の完了メッセージ</li>
+          <li><strong>プルダウン</strong>：カテゴリー選択（AIが自動でバッジも採用）</li>
+          <li><strong>アコーディオン</strong>：タスク詳細の展開・折りたたみ</li>
+          <li><strong>モーダル</strong>：タスク選択時の詳細表示画面</li>
+          <li><strong>確認ダイアログ</strong>：削除操作時の誤操作防止</li>
+          <li><strong>バッジ</strong>：カテゴリーの視覚的区別（AIが自動で選択）</li>
+          <li>SVGによるイラスト生成：「SVGで書いて」と指示するだけで絵文字・アイコンを作成可能（石橋氏がもやし絵文字を実装）</li>
+        </ul>
+      </div>
+
+      <div class="tech-block">
+        <div class="tech-title">④ Claude Codeの動作モード</div>
+        <div class="tech-why"><svg class="why-icon" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>なぜ重要か：モードを使い分けることで「考えさせる」「確認なしで進める」など開発効率を状況に応じて最適化できる。</div>
+        <ul>
+          <li><strong>ノーマルモード</strong>：通常の編集モード（毎回Yes確認あり）</li>
+          <li><strong>プランモード</strong>：ファイルを編集せず仕様だけ検討するモード。複雑な機能追加前に使うと安全</li>
+          <li><strong>バイパスパーミッションモード</strong>：毎回のYes確認を省略。作業が速くなるがリスクあり</li>
+          <li>Shift+Tabで3モードを切り替え</li>
+        </ul>
+      </div>
+
+      <div class="tech-block">
+        <div class="tech-title">⑤ Anthropic API連携とAPIキーのセキュリティ管理</div>
+        <div class="tech-why"><svg class="why-icon" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>なぜ重要か：APIキーは「お金と同じ」。流出すると第三者に使われ課金が発生する。正しい管理方法を最初に身につけることが必須。</div>
+        <ul>
+          <li>APIキー取得にはAnthropicコンソールでクレジットカード登録が必要（従量課金）</li>
+          <li><strong>絶対NG</strong>：APIキーをチャットや会話に直接貼り付けること（Claudeから警告が出る）</li>
+          <li><strong>正しい管理方法</strong>：プロジェクトルートに <code>.env</code> ファイルを作成し <code>ANTHROPIC_API_KEY=xxxxx</code> と記述</li>
+          <li><code>.gitignore</code> に <code>.env</code> を記載することでGitHubへのアップロードを防ぐ</li>
+          <li>キー流出時は即座にAnthropicコンソールの3点メニューからキーを削除・無効化</li>
+        </ul>
+      </div>
+
+      <div class="tech-block">
+        <div class="tech-title">⑥ AI自動タスクカテゴリー分類機能の実装</div>
+        <div class="tech-why"><svg class="why-icon" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>なぜ重要か：API連携の基本パターンを習得することで、AIを自分のアプリに「組み込む」感覚が身につく。これが各社の業務AIの基礎になる。</div>
+        <ul>
+          <li>タスク登録時にAnthropicAPIにタスク内容を送信し、Claudeがカテゴリーを自動判定してアプリに登録</li>
+          <li>内部プロンプト例：「あなたはタスク分類AIです。仕事・買い物・プライベート・健康の4カテゴリーのいずれかに分類してください」</li>
+          <li>実演：「もやし買いに行く」→「買い物」と自動分類に成功</li>
+          <li>エラー発生時の対処：エラーメッセージをそのままClaude Codeに貼り付け → サーバー再起動で解決</li>
+          <li>ユーザーがプルダウンでカテゴリーを手動変更できる設計も実装</li>
+        </ul>
+      </div>
+
+      <div class="tech-block">
+        <div class="tech-title">⑦ コンテキストエンジニアリング</div>
+        <div class="tech-why"><svg class="why-icon" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>なぜ重要か：AIへの指示の「質」が出力の質を直接決める。コンテキストを意識するだけで同じAIから全く違うアウトプットが得られる。</div>
+        <ul>
+          <li><code>/clear</code> コマンド：別タスクに移る前にAIの記憶（コンテキスト）をリセット</li>
+          <li>AIに役割を与える（「あなたはプロのUI設計者です」「品質チェックエージェントとして動いてください」）と出力品質が向上</li>
+          <li>技術スタック（Next.js・TypeScriptなど）をアプリ開発の最初に伝えることでブレが減る</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 4. 主要ディスカッション -->
+  <div class="section">
+    <div class="section-header">4. 主要ディスカッション（Q&A）</div>
+    <div class="section-body">
+
+      <div class="qa-item">
+        <div class="qa-q">Q.ターミナルでClaude Codeを使うことのメリットは何か？ブラウザのチャットと何が違うのか？</div>
+        <div class="qa-a">ブラウザのチャットは「会話だけ」だが、Claude Codeは実際にファイルを作成・編集・実行できる。PCに「手足が生えた状態」になるイメージ。将来的にGoogleカレンダーやスプレッドシートとの連携も同じ知識ベースで実現できるため、学んだスキルが他の自動化にも転用できる汎用スキルになる。</div>
+      </div>
+
+      <div class="qa-item">
+        <div class="qa-q">Q. エラーが出たときの対処法は？</div>
+        <div class="qa-a">エラーメッセージをそのままClaude Codeのチャットに貼り付けるだけでよい。今回のセッションでもAPI連携実装直後にエラーが発生したが、エラーメッセージを貼り付け → サーバー再起動の指示で数分以内に解決した。エラーを「ラッキーな学習機会」として捉える姿勢が大切。</div>
+      </div>
+
+      <div class="qa-item">
+        <div class="qa-q">Q. Google連携にはどんな方法があるか？</div>
+        <div class="qa-a">3つの方式がある。①サービスアカウント方式（バックエンドからサーバー間で接続）、②OAuth方式（ユーザーがログインして許可する方式）、③MCP（モデルコンテキストプロトコル）方式（Claude Codeから直接Googleサービスに接続）。</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 6. 今後の開発ロードマップ -->
+  <div class="section">
+    <div class="section-header">5. 今後の開発ロードマップ</div>
+    <div class="section-body">
+      <div style="overflow-x:auto;">
+        <table class="roadmap-table">
+          <thead>
+            <tr><th>第</th><th>日程</th><th>テーマ</th><th>状態</th></tr>
+          </thead>
+          <tbody>
+            <tr class="roadmap-done">
+              <td>第1回</td>
+              <td>4月20日（月）</td>
+              <td>VIBECODINGとは／Webアプリ三層構造／Claude Code環境設定／GitHub連携／ToDoアプリ フロントエンド実装</td>
+              <td><svg style="width:15px;height:15px;vertical-align:-3px;stroke:#888;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>完了</td>
+            </tr>
+            <tr class="roadmap-current">
+              <td>第2回</td>
+              <td>4月30日（木）</td>
+              <td>UIコンポーネント実装／Claude Code動作モード／Anthropic API連携／AIタスク自動分類／APIキーセキュリティ</td>
+              <td><svg style="width:15px;height:15px;vertical-align:-3px;stroke:#16a34a;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>完了</td>
+            </tr>
+            <tr>
+              <td>第3回</td>
+              <td>5月11日（日）</td>
+              <td>データベース接続・RDBの理解／デプロイ（インターネット公開）</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td>第4回</td>
+              <td>5月18日（日）</td>
+              <td>仕様書・CLAUDE.mdの書き方／仕様駆動でサンプルアプリ作成／各自の自社アプリ仕様書作成</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td>第5回</td>
+              <td>5月25日（日）</td>
+              <td>各社の開発アプリ開発</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td>第6回</td>
+              <td>6月1日（日）</td>
+              <td>各社の開発アプリ開発</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td>第7回</td>
+              <td>6月8日（日）</td>
+              <td>各社の開発アプリ開発</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td>第8回</td>
+              <td>6月15日（日）</td>
+              <td>最終成果報告</td>
+              <td>—</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 豆知識 Tips -->
+  <div class="section">
+    <div class="section-header">6. 豆知識 Tips</div>
+    <div class="section-body">
+      <div class="tips-grid">
+
+        <div class="tip-card">
+          <div class="tip-emoji">⌨️</div>
+          <div>
+            <div class="tip-title">Shift+Tab で3モード即切り替え</div>
+            <div class="tip-body">Claude Code は Shift+Tab を押すたびに「ノーマル → プラン → バイパス」の3モードを順番に切り替えられる。複雑な機能を追加するときはプランモードで安全確認、作業が慣れてきたらバイパスで爆速モードに。</div>
+          </div>
+        </div>
+
+        <div class="tip-card">
+          <div class="tip-emoji">🧹</div>
+          <div>
+            <div class="tip-title">/clear でAIの頭をリフレッシュ</div>
+            <div class="tip-body">Claude Code は会話履歴を「コンテキスト」として保持し続ける。別のタスクに移るとき <code>/clear</code> を打つと記憶がリセットされ、前の作業の影響を受けない新鮮な状態で指示できる。</div>
+          </div>
+        </div>
+
+        <div class="tip-card">
+          <div class="tip-emoji">🎭</div>
+          <div>
+            <div class="tip-title">AIに「役割」を与えると出力が変わる</div>
+            <div class="tip-body">「あなたはプロのUI設計者です」「品質チェックエージェントとして動いてください」のように役割を最初に宣言するだけで、同じ質問でも出力の質が大きく変わる。</div>
+          </div>
+        </div>
+
+        <div class="tip-card">
+          <div class="tip-emoji">🎨</div>
+          <div>
+            <div class="tip-title">「SVGで書いて」でオリジナルアイコンを作れる</div>
+            <div class="tip-body">画像ファイルを用意しなくても、「SVGでもやしのイラストを書いて」と指示するだけでコード上にアイコンやイラストを生成できる。フォントや絵文字に縛られない表現が可能になる。</div>
+          </div>
+        </div>
+
+        <div class="tip-card">
+          <div class="tip-emoji">🚨</div>
+          <div>
+            <div class="tip-title">エラーはそのままコピペするだけでOK</div>
+            <div class="tip-body">エラーが出たら内容を理解しようとしなくていい。ターミナルのエラーメッセージをそのままClaude Codeのチャットに貼り付けるだけで、原因の特定から修正まで自動でやってくれる。</div>
+          </div>
+        </div>
+
+        <div class="tip-card">
+          <div class="tip-emoji">🔑</div>
+          <div>
+            <div class="tip-title">APIキーは「お金と同じ」扱いで</div>
+            <div class="tip-body">APIキーが流出すると第三者に勝手に使われ課金が発生する。チャットや会話に貼らず、必ず <code>.env</code> ファイルに保存。もし流出したらAnthropicコンソールの3点メニューから即削除・無効化を。</div>
+          </div>
+        </div>
+
+        <div class="tip-card">
+          <div class="tip-emoji">💡</div>
+          <div>
+            <div class="tip-title">アプリの仕様はAIに提案させる</div>
+            <div class="tip-body">「何を作ればいいかわからない」ときは、自分の業務内容や課題をAIに伝えるだけでOK。「どんな機能があると便利か提案して」と聞けば、画面構成・必要なデータ・操作フローまでまとめてくれる。ゼロから考えるより圧倒的に速い。</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. その他 -->
+  <div class="section">
+    <div class="section-header">7. その他</div>
+    <div class="section-body">
+      <p style="margin-top:10px;">次回はゴールデンウィーク明けの5月11日（日）。データが保持されるアプリ（DB接続）と、インターネットに公開できるアプリ（Vercelデプロイ）の2大テーマを扱う。</p>
+    </div>
+  </div>
+
+</div>
+
+<footer>記録：岡田雄太 ／ 作成日：2026年4月30日 ／ VIBECODING LAB</footer>
+
+</body>
+</html>
